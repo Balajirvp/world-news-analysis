@@ -1,0 +1,8 @@
+.env
+*.csv
+*.ipynb
+*.ipynb_checkpoints
+venv/
+notebook_venv/
+__pycache__/
+data/
