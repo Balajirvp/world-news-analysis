@@ -24,8 +24,6 @@ reddit_credentials = {
         'user_agent': os.getenv("REDDIT_USER_AGENT")
     }
 
-print(os.getenv("REDDIT_CLIENT_ID"))
-
 reddit = praw.Reddit(**reddit_credentials)
 
 # Get subreddit name
@@ -109,18 +107,3 @@ def collect_comments(post_ids):
     
     print(f"Saved {len(all_comments)} comments to {filename}")
     return all_comments
-
-def main():
-    print(f"Starting data collection at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    
-    # Collect posts and get their IDs
-    post_ids = collect_posts()  
-    
-    # Collect comments for those posts
-    if post_ids:
-        collect_comments(post_ids)
-    
-    print(f"Data collection completed at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-
-if __name__ == "__main__":
-    main()

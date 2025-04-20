@@ -1,0 +1,22 @@
+{
+    "mappings": {
+      "properties": {
+        "post_id": { "type": "keyword" },
+        "title": { 
+          "type": "text",
+          "fields": {
+            "keyword": { "type": "keyword", "ignore_above": 256 }
+          }
+        },
+        "author": { "type": "keyword" },
+        "created_utc": { "type": "date", "format": "epoch_second" },
+        "url": { "type": "keyword" },
+        "num_comments": { "type": "integer" },
+        "score": { "type": "integer" },
+        "description": { "type": "text" },
+        "upvote_ratio": { "type": "float" },
+        "post_flair": { "type": "keyword" },
+        "collection_date": { "type": "date" }
+      }
+    }
+  }
