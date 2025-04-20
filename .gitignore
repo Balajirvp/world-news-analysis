@@ -1,8 +1,21 @@
+# Environment and secrets
 .env
+
+# Python
 *.csv
 *.ipynb
 *.ipynb_checkpoints
 venv/
 notebook_venv/
 __pycache__/
-data/
+
+# Airflow initialization marker
+.airflow_initialized
+
+# Data files
+data/posts/
+data/comments/
+
+# Airflow logs
+airflow/logs/
+airflow/plugins/

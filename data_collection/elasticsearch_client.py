@@ -5,11 +5,11 @@ from pathlib import Path
 from elasticsearch import Elasticsearch
 
 class ElasticsearchClient:
-    def __init__(self, host="localhost", port=9200):
-        self.es = Elasticsearch([{"host": host, "port": port, "scheme": "http"}]) 
+    def __init__(self, host="localhost", port=9200, scheme="http"):
+        self.es = Elasticsearch([{"host": host, "port": port, "scheme": scheme}]) 
         
         # Paths
-        self.elasticsearch_dir = Path("data_collection/elasticsearch")
+        self.elasticsearch_dir = Path("elasticsearch")
         self.mappings_dir = self.elasticsearch_dir / "mappings"
     
     def is_connected(self):
