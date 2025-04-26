@@ -19,3 +19,6 @@ data/comments/
 # Airflow logs
 airflow/logs/
 airflow/plugins/
+
+# Logs
+logs/

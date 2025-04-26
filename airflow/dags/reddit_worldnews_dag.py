@@ -15,8 +15,8 @@ dag = DAG(
     'reddit_worldnews_daily',
     default_args=default_args,
     description='Collect daily data from r/worldnews',
-    schedule_interval='0 0 * * *',  # Run at midnight every day
-    start_date=datetime(2025, 4, 20),
+    schedule_interval='0 18 * * *', 
+    start_date=datetime(2025, 4, 25),
     catchup=False,
     tags=['reddit', 'elasticsearch'],
 )
