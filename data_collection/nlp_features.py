@@ -3,7 +3,13 @@ import json
 import pandas as pd
 from pathlib import Path
 from urllib.parse import urlparse
-from transformers import pipeline
+from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
+import os
+from dotenv import load_dotenv
+import concurrent.futures
+import torch
+
+load_dotenv()
 
 class RedditDataEnricher:
     """Class to enrich Reddit data with NER, sentiment, and domain information"""
@@ -16,14 +22,16 @@ class RedditDataEnricher:
         self.ner_pipeline = pipeline(
             "ner", 
             model=ner_model,
-            aggregation_strategy="simple"
+            aggregation_strategy="simple",
+            device=0 if torch.cuda.is_available() else -1  # Use GPU if available
         )
         
         # Initialize sentiment analysis pipeline
         print("Loading sentiment analysis model...")
         self.sentiment_pipeline = pipeline(
             "sentiment-analysis", 
-            model=sentiment_model
+            model=sentiment_model,
+            device=0 if torch.cuda.is_available() else -1  # Use GPU if available
         )
         
         # Region mapping
@@ -232,19 +240,27 @@ class RedditDataEnricher:
         return enriched_comment
     
     def process_files(self, posts_file, comments_file, output_posts_file, output_comments_file):
-        """Process JSON files and save enriched data"""
-        print(f"Processing posts from {posts_file}")
+        """Process JSON files and save enriched data using parallel processing"""
         
-        # Process posts
+        # --- Process posts ---
+        print(f"Processing posts from {posts_file}")
         with open(posts_file, 'r', encoding='utf-8') as f:
             posts = json.load(f)
         
         enriched_posts = []
-        for i, post in enumerate(posts):
-            if i > 0 and i % 10 == 0:
-                print(f"Processed {i}/{len(posts)} posts")
-            enriched_post = self.enrich_post(post)
-            enriched_posts.append(enriched_post)
+        with concurrent.futures.ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
+            # Use a list comprehension to submit all tasks at once
+            futures = [executor.submit(self.enrich_post, post) for post in posts]
+            
+            # Iterate over the futures as they complete
+            for i, future in enumerate(concurrent.futures.as_completed(futures)):
+                if i > 0 and i % 10 == 0:
+                    print(f"Processed {i}/{len(posts)} posts")
+                try:
+                    enriched_post = future.result()  # Get the result of the enrichment
+                    enriched_posts.append(enriched_post)
+                except Exception as e:
+                    print(f"Error enriching post: {e}")
         
         # Save enriched posts
         with open(output_posts_file, 'w', encoding='utf-8') as f:
@@ -252,17 +268,25 @@ class RedditDataEnricher:
         
         print(f"Saved enriched posts to {output_posts_file}")
         
-        # Process comments
+        # --- Process comments ---
         print(f"Processing comments from {comments_file}")
         with open(comments_file, 'r', encoding='utf-8') as f:
             comments = json.load(f)
         
         enriched_comments = []
-        for i, comment in enumerate(comments):
-            if i > 0 and i % 100 == 0:
-                print(f"Processed {i}/{len(comments)} comments")
-            enriched_comment = self.enrich_comment(comment)
-            enriched_comments.append(enriched_comment)
+        with concurrent.futures.ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
+            # Use a list comprehension to submit all tasks at once
+            futures = [executor.submit(self.enrich_comment, comment) for comment in comments]
+            
+            # Iterate over the futures as they complete
+            for i, future in enumerate(concurrent.futures.as_completed(futures)):
+                if i > 0 and i % 100 == 0:
+                    print(f"Processed {i}/{len(comments)} comments")
+                try:
+                    enriched_comment = future.result()  # Get the result of the enrichment
+                    enriched_comments.append(enriched_comment)
+                except Exception as e:
+                    print(f"Error enriching comment: {e}")
         
         # Save enriched comments
         with open(output_comments_file, 'w', encoding='utf-8') as f:
