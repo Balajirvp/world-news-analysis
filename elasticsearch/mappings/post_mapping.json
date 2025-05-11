@@ -16,6 +16,29 @@
         "description": { "type": "text" },
         "upvote_ratio": { "type": "float" },
         "post_flair": { "type": "keyword" },
+        "domain": { "type": "keyword" },
+        "sentiment_score": { "type": "float" },
+        "sentiment_category": { "type": "keyword" },
+        "persons_mentioned": { 
+          "type": "keyword",
+          "normalizer": "lowercase" 
+        },
+        "locations_mentioned": { 
+          "type": "keyword",
+          "normalizer": "lowercase" 
+        },
+        "organizations_mentioned": { 
+          "type": "keyword",
+          "normalizer": "lowercase" 
+        },
+        "misc_entities_mentioned": { 
+          "type": "keyword",
+          "normalizer": "lowercase" 
+        },
+        "regions_mentioned": { 
+          "type": "keyword",
+          "normalizer": "lowercase" 
+        },
         "collection_date": { "type": "date" }
       }
     }
