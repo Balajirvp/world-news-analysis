@@ -9,7 +9,7 @@ docker network create reddit_network 2>/dev/null || true
 
 # Start Elasticsearch
 echo "Starting Elasticsearch..."
-docker-compose up -d
+docker-compose up -d # add --build in case you want to rebuild the images
 echo "Waiting for Elasticsearch to be ready..."
 until $(curl --output /dev/null --silent --head --fail http://localhost:9200); do
   printf '.'
@@ -21,7 +21,7 @@ echo -e "\nElasticsearch is ready!"
 echo "Checking Airflow database..."
 if [ ! -f ".airflow_initialized" ]; then
   echo "Initializing Airflow database..."
-  docker-compose -f docker-compose-airflow.yml run --rm airflow-webserver airflow db init
+  docker-compose -f docker-compose-airflow.yml run --rm airflow-webserver airflow db migrate
   
   echo "Creating Airflow admin user..."
   docker-compose -f docker-compose-airflow.yml run --rm airflow-webserver airflow users create \
@@ -40,7 +40,7 @@ fi
 
 # Start Airflow services
 echo "Starting Airflow services..."
-docker-compose -f docker-compose-airflow.yml up -d
+docker-compose -f docker-compose-airflow.yml up -d # add --build in case you want to rebuild the images
 
 echo -e "\n=== All Services Running ==="
 echo "- Elasticsearch: http://localhost:9200"
