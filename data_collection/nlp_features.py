@@ -16,6 +16,9 @@ class RedditDataEnricher:
      
     def __init__(self, ner_model, sentiment_model):
         """Initialize models and reference data"""
+        # Set random seeds for reproducibility
+        torch.cuda.manual_seed_all(42)
+
         # Initialize NER pipeline
         print("Loading NER model...")
 
@@ -23,7 +26,8 @@ class RedditDataEnricher:
             "ner", 
             model=ner_model,
             aggregation_strategy="simple",
-            device=0 if torch.cuda.is_available() else -1  # Use GPU if available
+            device=0 if torch.cuda.is_available() else -1,  # Use GPU if available
+            torch_dtype=torch.float32
         )
         
         # Initialize sentiment analysis pipeline
@@ -31,7 +35,8 @@ class RedditDataEnricher:
         self.sentiment_pipeline = pipeline(
             "sentiment-analysis", 
             model=sentiment_model,
-            device=0 if torch.cuda.is_available() else -1  # Use GPU if available
+            device=0 if torch.cuda.is_available() else -1,  # Use GPU if available
+            torch_dtype=torch.float32
         )
         
         # Region mapping
