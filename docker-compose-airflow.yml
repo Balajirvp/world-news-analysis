@@ -15,7 +15,7 @@ services:
     build:
       context: ./airflow
       dockerfile: Dockerfile
-    image: redditworldnewspipeline-airflow-webserver
+    image: redditworldnewspipeline-airflow
     container_name: reddit_airflow_webserver
     depends_on:
       - postgres
@@ -45,12 +45,16 @@ services:
       retries: 5
     networks:
       - reddit_network
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 'all'  # Use 'all' if you want to use all available GPUs
+              capabilities: [gpu]
 
   airflow-scheduler:
-    build:
-      context: ./airflow
-      dockerfile: Dockerfile
-    image: redditworldnewspipeline-airflow-scheduler
+    image: redditworldnewspipeline-airflow
     container_name: reddit_airflow_scheduler
     depends_on:
       - airflow-webserver
@@ -73,6 +77,13 @@ services:
     command: scheduler
     networks:
       - reddit_network
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 'all'  # Use 'all' if you want to use all available GPUs
+              capabilities: [gpu]
 
 networks:
   reddit_network:
