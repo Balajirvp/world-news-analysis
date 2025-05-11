@@ -9,7 +9,7 @@ class RedditDataCollector:
         """Initialize the Reddit API client."""
         self.reddit = praw.Reddit(**reddit_credentials)
 
-    def collect_posts(self, subreddit_name, posts_dir):
+    def collect_posts(self, subreddit_name):
         """Collect all top posts from a subreddit in the given day."""
         print(f"Collecting top posts from r/{subreddit_name}...")
 
@@ -35,17 +35,10 @@ class RedditDataCollector:
             posts_list.append(post_data)
             post_ids.append(post.id)
 
-        # Save to JSON file with date
-        date_str = datetime.now().strftime("%Y-%m-%d")
-        filename = posts_dir / f"posts_{date_str}.json"
+        print(f"Collected {len(posts_list)} posts")
+        return posts_list, post_ids
 
-        with open(filename, "w", encoding="utf-8") as f:
-            json.dump(posts_list, f, ensure_ascii=False, indent=4)
-
-        print(f"Saved {len(posts_list)} posts to {filename}")
-        return post_ids
-
-    def collect_comments(self, post_ids, comments_dir):
+    def collect_comments(self, post_ids):
         """Collect comments for each post."""
         print(f"Collecting comments for {len(post_ids)} posts...")
 
@@ -78,12 +71,5 @@ class RedditDataCollector:
             all_comments.extend(post_comments)
             print(f"Collected {len(post_comments)} comments for post {post_id}")
 
-        # Save to JSON file with date
-        date_str = datetime.now().strftime("%Y-%m-%d")
-        filename = comments_dir / f"comments_{date_str}.json"
-
-        with open(filename, "w", encoding="utf-8") as f:
-            json.dump(all_comments, f, ensure_ascii=False, indent=4)
-
-        print(f"Saved {len(all_comments)} comments to {filename}")
+        print(f"Collected {len(all_comments)} comments total")
         return all_comments

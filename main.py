@@ -2,9 +2,11 @@ import os
 from datetime import datetime
 from pathlib import Path
 from dotenv import load_dotenv
+import json
 
 from data_collection.reddit_data_collector import RedditDataCollector
 from data_collection.elasticsearch_client import ElasticsearchClient
+from data_collection.nlp_features import RedditDataEnricher
 
 def main():
     """Main function to orchestrate the data pipeline"""
@@ -34,13 +36,40 @@ def main():
     # Get subreddit name
     subreddit_name = os.getenv("SUBREDDIT", "worldnews")
     
-    # Step 1: Collect data from Reddit
-    print("\n--- STEP 1: COLLECTING DATA FROM REDDIT ---")
-    post_ids = reddit_collector.collect_posts(subreddit_name, posts_dir) 
+    # Initialize NLP enricher
+    ner_model = os.getenv("NER_MODEL")
+    sentiment_model = os.getenv("SENTIMENT_MODEL")
+    enricher = RedditDataEnricher(ner_model, sentiment_model)
+
+    # Step 1: Collect and enrich data from Reddit
+    print("\n--- STEP 1: COLLECTING AND ENRICHING DATA FROM REDDIT ---")
+    posts, post_ids = reddit_collector.collect_posts(subreddit_name)  # Remove posts_dir parameter
     
+    # Enrich posts
+    print("\nEnriching posts with NLP features...")
+    enriched_posts = [enricher.enrich_post(post) for post in posts]
+    
+    # Today's date
+    date_str = datetime.now().strftime("%Y-%m-%d")
+    elasticsearch_date = date_str.replace("-", ".")
+
+    # Save enriched posts
+    with open(posts_dir / f"posts_{date_str}.json", "w", encoding="utf-8") as f:
+        json.dump(enriched_posts, f, ensure_ascii=False, indent=4)
+    print(f"Saved {len(enriched_posts)} enriched posts")
+
     # Only proceed with comments if we got posts
     if post_ids:
-        reddit_collector.collect_comments(post_ids, comments_dir)
+        comments = reddit_collector.collect_comments(post_ids)  # Remove comments_dir parameter
+        
+        # Enrich comments
+        print("\nEnriching comments with NLP features...")
+        enriched_comments = [enricher.enrich_comment(comment) for comment in comments]
+        
+        # Save enriched comments
+        with open(comments_dir / f"comments_{date_str}.json", "w", encoding="utf-8") as f:
+            json.dump(enriched_comments, f, ensure_ascii=False, indent=4)
+        print(f"Saved {len(enriched_comments)} enriched comments")
     
     # Step 2: Load data into Elasticsearch
     print("\n--- STEP 2: LOADING DATA INTO ELASTICSEARCH ---")
@@ -52,10 +81,6 @@ def main():
     if not es_client.is_connected():
         print("Elasticsearch connection failed. Make sure it's running.")
         return
-
-    # Today's date
-    date_str = datetime.now().strftime("%Y-%m-%d")
-    elasticsearch_date = date_str.replace("-", ".")
     
     # Create indices
     posts_index, comments_index = es_client.create_indices(elasticsearch_date)
