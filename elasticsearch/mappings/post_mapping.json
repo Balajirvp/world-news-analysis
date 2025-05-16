@@ -5,41 +5,113 @@
         "title": { 
           "type": "text",
           "fields": {
-            "keyword": { "type": "keyword", "ignore_above": 256 }
+            "raw": { "type": "keyword" },
+            "search": { 
+              "type": "text",
+              "analyzer": "folding"
+            }
           }
         },
         "author": { "type": "keyword" },
-        "created_utc": { "type": "date", "format": "epoch_second" },
+        "created_utc": { 
+          "type": "date", 
+          "format": "epoch_second",
+          "fields": {
+            "year": {
+              "type": "date",
+              "format": "epoch_second"
+            }
+          }
+        },
         "url": { "type": "keyword" },
-        "num_comments": { "type": "integer" },
-        "score": { "type": "integer" },
-        "description": { "type": "text" },
+        "num_comments": { 
+          "type": "integer",
+          "fields": {
+            "normalized": {
+              "type": "scaled_float",
+              "scaling_factor": 100
+            }
+          }
+        },
+        "score": { 
+          "type": "integer",
+          "fields": {
+            "normalized": {
+              "type": "scaled_float",
+              "scaling_factor": 100
+            }
+          }
+        },
+        "description": { 
+          "type": "text",
+          "fields": {
+            "raw": { "type": "keyword" },
+            "search": { "type": "text", "analyzer": "folding" }
+          }
+        },
         "upvote_ratio": { "type": "float" },
         "post_flair": { "type": "keyword" },
         "domain": { "type": "keyword" },
         "sentiment_score": { "type": "float" },
-        "sentiment_category": { "type": "keyword" },
+        "sentiment_category": { 
+          "type": "keyword",
+          "null_value": "neutral"
+        },
         "persons_mentioned": { 
           "type": "keyword",
-          "normalizer": "lowercase" 
+          "fields": {
+            "raw": { "type": "keyword" },
+            "search": { "type": "text", "analyzer": "folding" }
+          },
+          "eager_global_ordinals": true
         },
         "locations_mentioned": { 
           "type": "keyword",
-          "normalizer": "lowercase" 
+          "fields": {
+            "raw": { "type": "keyword" },
+            "search": { "type": "text", "analyzer": "folding" }
+          },
+          "eager_global_ordinals": true
         },
         "organizations_mentioned": { 
           "type": "keyword",
-          "normalizer": "lowercase" 
+          "fields": {
+            "raw": { "type": "keyword" },
+            "search": { "type": "text", "analyzer": "folding" }
+          },
+          "eager_global_ordinals": true
         },
         "misc_entities_mentioned": { 
           "type": "keyword",
-          "normalizer": "lowercase" 
+          "fields": {
+            "raw": { "type": "keyword" },
+            "search": { "type": "text", "analyzer": "folding" }
+          },
+          "eager_global_ordinals": true
         },
         "regions_mentioned": { 
           "type": "keyword",
-          "normalizer": "lowercase" 
+          "fields": {
+            "raw": { "type": "keyword" },
+            "search": { "type": "text", "analyzer": "folding" }
+          },
+          "eager_global_ordinals": true
         },
         "collection_date": { "type": "date" }
       }
+    },
+    "settings": {
+      "analysis": {
+        "analyzer": {
+          "folding": {
+            "type": "custom",
+            "tokenizer": "standard",
+            "filter": [
+              "lowercase",
+              "asciifolding"
+            ]
+          }
+        }
+      }
     }
-  }
+}
