@@ -1,8 +1,11 @@
 # Environment and secrets
 .env
 
-# Python
+# Docs
 *.csv
+*.pdf
+
+# Python
 *.ipynb
 *.ipynb_checkpoints
 venv/
