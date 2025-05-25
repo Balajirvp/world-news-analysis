@@ -7,6 +7,7 @@ import json
 from data_collection.reddit_data_collector import RedditDataCollector
 from data_collection.elasticsearch_client import ElasticsearchClient
 from data_collection.nlp_features import RedditDataEnricher
+from data_collection.location_processor import LocationProcessor  
 
 def main():
     """Main function to orchestrate the data pipeline"""
@@ -41,39 +42,48 @@ def main():
     sentiment_model = os.getenv("SENTIMENT_MODEL")
     enricher = RedditDataEnricher(ner_model, sentiment_model)
 
-    # Step 1: Collect and enrich data from Reddit
-    print("\n--- STEP 1: COLLECTING AND ENRICHING DATA FROM REDDIT ---")
-    posts, post_ids = reddit_collector.collect_posts(subreddit_name)  # Remove posts_dir parameter
+    # Initialize Location Processor
+    location_processor = LocationProcessor()
+
+    # Collect and enrich posts data from Reddit
+    print("\n--- STEP 1: COLLECTING DATA FROM REDDIT ---")
+    posts, post_ids = reddit_collector.collect_posts(subreddit_name)  
     
-    # Enrich posts
-    print("\nEnriching posts with NLP features...")
+    # Enrich posts data by creating features using NLP models
+    print("\n--- STEP 2: ENRICHING POSTS WITH NLP FEATURES...")
     enriched_posts = [enricher.enrich_post(post) for post in posts]
+    
+    # Process countries to their correct mapping and ISO codes
+    print("\n--- STEP 3: PROCESSING LOCATIONS TO CREATE ACCURATE MAPPING FOR COUNTRY NAME AND ISO CODE...")
+    processed_posts = location_processor.process_posts(enriched_posts)
     
     # Today's date
     date_str = datetime.now().strftime("%Y-%m-%d")
     elasticsearch_date = date_str.replace("-", ".")
 
-    # Save enriched posts
+    # Save processed posts
+    print("\n--- STEP 4: SAVING PROCESSED POSTS ---")
     with open(posts_dir / f"posts_{date_str}.json", "w", encoding="utf-8") as f:
-        json.dump(enriched_posts, f, ensure_ascii=False, indent=4)
-    print(f"Saved {len(enriched_posts)} enriched posts")
+        json.dump(processed_posts, f, ensure_ascii=False, indent=4)
+    print(f"Saved {len(processed_posts)} processed posts")
 
-    # Only proceed with comments if we got posts
+    # Only proceed with corresponding comments if we got posts
     if post_ids:
         comments = reddit_collector.collect_comments(post_ids)  # Remove comments_dir parameter
         
         # Enrich comments
-        print("\nEnriching comments with NLP features...")
+        print("\n--- STEP 5: ENRICHING COMMENTS WITH NLP FEATURES ---")
         enriched_comments = [enricher.enrich_comment(comment) for comment in comments]
         
         # Save enriched comments
+        print("\n--- STEP 6: SAVING ENRICHED COMMENTS ---")
         with open(comments_dir / f"comments_{date_str}.json", "w", encoding="utf-8") as f:
             json.dump(enriched_comments, f, ensure_ascii=False, indent=4)
         print(f"Saved {len(enriched_comments)} enriched comments")
     
-    # Step 2: Load data into Elasticsearch
-    print("\n--- STEP 2: LOADING DATA INTO ELASTICSEARCH ---")
-    
+    # Load data into Elasticsearch
+    print("\n--- STEP 7: LOADING DATA INTO ELASTICSEARCH ---")
+
     # Initialize Elasticsearch client
     es_client = ElasticsearchClient(host="elasticsearch", port=9200, scheme="http")
     
