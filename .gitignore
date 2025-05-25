@@ -4,6 +4,7 @@
 # Docs
 *.csv
 *.pdf
+analysis/
 
 # Python
 *.ipynb
