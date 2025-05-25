@@ -97,6 +97,18 @@
           },
           "eager_global_ordinals": true
         },
+        "locations_mentioned_updated": {
+            "type": "keyword",
+            "fields": {
+                "raw": {"type": "keyword"},
+                "search": {"type": "text", "analyzer": "folding"}
+            },
+            "eager_global_ordinals": true
+        },
+        "locations_mentioned_iso_code": {
+            "type": "keyword",
+            "eager_global_ordinals": true
+        },
         "collection_date": { "type": "date" }
       }
     },
