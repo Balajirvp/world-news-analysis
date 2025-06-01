@@ -109,6 +109,14 @@
             "type": "keyword",
             "eager_global_ordinals": true
         },
+        "persons_mentioned_updated": {
+            "type": "keyword",
+            "fields": {
+                "raw": {"type": "keyword"},
+                "search": {"type": "text", "analyzer": "folding"}
+            },
+            "eager_global_ordinals": true
+        },
         "collection_date": { "type": "date" }
       }
     },

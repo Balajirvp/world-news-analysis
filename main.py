@@ -7,7 +7,8 @@ import json
 from data_collection.reddit_data_collector import RedditDataCollector
 from data_collection.elasticsearch_client import ElasticsearchClient
 from data_collection.nlp_features import RedditDataEnricher
-from data_collection.location_processor import LocationProcessor  
+from data_collection.location_processor import LocationProcessor
+from data_collection.person_name_processor import SemanticNameDeduplicator  
 
 def main():
     """Main function to orchestrate the data pipeline"""
@@ -42,8 +43,9 @@ def main():
     sentiment_model = os.getenv("SENTIMENT_MODEL")
     enricher = RedditDataEnricher(ner_model, sentiment_model)
 
-    # Initialize Location Processor
+    # Initialize Location and Person Processors
     location_processor = LocationProcessor()
+    person_processor = SemanticNameDeduplicator()
 
     # Collect and enrich posts data from Reddit
     print("\n--- STEP 1: COLLECTING DATA FROM REDDIT ---")
@@ -56,13 +58,17 @@ def main():
     # Process countries to their correct mapping and ISO codes
     print("\n--- STEP 3: PROCESSING LOCATIONS TO CREATE ACCURATE MAPPING FOR COUNTRY NAME AND ISO CODE...")
     processed_posts = location_processor.process_posts(enriched_posts)
+
+    # Process person names
+    print("\n--- STEP 4: PROCESSING PERSON NAMES TO THEIR CANONICAL FORM ---")
+    processed_posts = person_processor.update_persons_mentioned(processed_posts)
     
     # Today's date
     date_str = datetime.now().strftime("%Y-%m-%d")
     elasticsearch_date = date_str.replace("-", ".")
 
     # Save processed posts
-    print("\n--- STEP 4: SAVING PROCESSED POSTS ---")
+    print("\n--- STEP 5: SAVING PROCESSED POSTS ---")
     with open(posts_dir / f"posts_{date_str}.json", "w", encoding="utf-8") as f:
         json.dump(processed_posts, f, ensure_ascii=False, indent=4)
     print(f"Saved {len(processed_posts)} processed posts")
@@ -72,17 +78,17 @@ def main():
         comments = reddit_collector.collect_comments(post_ids)  # Remove comments_dir parameter
         
         # Enrich comments
-        print("\n--- STEP 5: ENRICHING COMMENTS WITH NLP FEATURES ---")
+        print("\n--- STEP 6: ENRICHING COMMENTS WITH NLP FEATURES ---")
         enriched_comments = [enricher.enrich_comment(comment) for comment in comments]
         
         # Save enriched comments
-        print("\n--- STEP 6: SAVING ENRICHED COMMENTS ---")
+        print("\n--- STEP 7: SAVING ENRICHED COMMENTS ---")
         with open(comments_dir / f"comments_{date_str}.json", "w", encoding="utf-8") as f:
             json.dump(enriched_comments, f, ensure_ascii=False, indent=4)
         print(f"Saved {len(enriched_comments)} enriched comments")
     
     # Load data into Elasticsearch
-    print("\n--- STEP 7: LOADING DATA INTO ELASTICSEARCH ---")
+    print("\n--- STEP 8: LOADING DATA INTO ELASTICSEARCH ---")
 
     # Initialize Elasticsearch client
     es_client = ElasticsearchClient(host="elasticsearch", port=9200, scheme="http")

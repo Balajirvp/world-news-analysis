@@ -6,3 +6,5 @@ transformers==4.51.3
 geopy==2.4.1
 reverse_geocoder==1.5.1
 pycountry==24.6.1
+scikit-learn==1.6.1
+sentence-transformers==4.1.0
