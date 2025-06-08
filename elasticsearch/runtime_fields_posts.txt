@@ -1,0 +1,90 @@
+# Code to run in dev tools in elsticsearch to create runtime fields 
+# (hour of the day, engagement_score, engagement_tier) which are used for viz
+
+
+// DELETE _transform/reddit_post_comment_joined
+
+// DELETE reddit_joined_data
+
+// GET _transform/reddit_post_comment_joined/_stats
+
+
+
+### Creating the ingest pipeline in elasticsearch to create new fields (engagement, hour, etc)
+
+PUT _ingest/pipeline/reddit-worldnews-enrichment
+{
+  "description": "Enrich Reddit WorldNews posts with hour_of_day, engagement_tier, and engagement_score",
+  "processors": [
+    {
+      "script": {
+        "description": "Add hour_of_day field",
+        "if": "ctx.created_utc != null",
+        "source": """
+          if (ctx.created_utc instanceof String) {
+            ctx.hour_of_day = Instant.parse(ctx.created_utc).atZone(ZoneId.of('UTC')).getHour().toString();
+          } else if (ctx.created_utc instanceof Long) {
+            ctx.hour_of_day = Instant.ofEpochSecond(ctx.created_utc).atZone(ZoneId.of('UTC')).getHour().toString();
+          }
+        """
+      }
+    },
+    {
+      "script": {
+        "description": "Add engagement_score and engagement_tier",
+        "source": """
+          def score = ctx.score != null ? ctx.score : 0;
+          def comments = ctx.num_comments != null ? ctx.num_comments : 0;
+          
+          // Calculate engagement score
+          def engagement = (score * 0.5) + (comments * 0.5);
+          ctx.engagement_score = engagement;
+          
+          // Determine engagement tier
+          if (engagement < 100) {
+            ctx.engagement_tier = 'Low';
+          } else if (engagement < 500) {
+            ctx.engagement_tier = 'Medium';
+          } else {
+            ctx.engagement_tier = 'High';
+          }
+        """
+      }
+    }
+  ]
+}
+
+
+### Adding indexes to the new fields
+PUT _index_template/reddit-worldnews-template
+{
+  "index_patterns": ["reddit_worldnews_posts_*"],
+  "priority": 200,
+  "template": {
+    "settings": {
+      "index": {
+        "default_pipeline": "reddit-worldnews-enrichment"
+      }
+    },
+    "mappings": {
+      "properties": {
+        "hour_of_day": {
+          "type": "keyword"
+        },
+        "engagement_tier": {
+          "type": "keyword"
+        },
+        "engagement_score": {
+          "type": "double"
+        }
+      }
+    }
+  }
+}
+
+### Applying the ingest pipeline to existing indices
+
+PUT reddit_worldnews_posts_*/_settings
+{
+  "index.default_pipeline": "reddit-worldnews-enrichment"
+}
