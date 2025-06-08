@@ -1,59 +1,67 @@
 {
-    "mappings": {
-      "properties": {
-        "comment_id": { "type": "keyword" },
-        "post_id": { "type": "keyword" },
-        "body": { 
-          "type": "text",
-          "fields": {
-            "raw": { "type": "keyword", "ignore_above": 1024 },
-            "search": { 
-              "type": "text",
-              "analyzer": "folding"
-            }
+  "mappings": {
+    "properties": {
+      "comment_id": { "type": "keyword" },
+      "post_id": { "type": "keyword" },
+      "body": { 
+        "type": "text",
+        "fields": {
+          "raw": { "type": "keyword", "ignore_above": 1024 },
+          "search": { 
+            "type": "text",
+            "analyzer": "folding"
           }
-        },
-        "author": { "type": "keyword" },
-        "created_utc": { 
-          "type": "date", 
-          "format": "epoch_second",
-          "fields": {
-            "year": {
-              "type": "date",
-              "format": "epoch_second"
-            }
+        }
+      },
+      "author": { "type": "keyword" },
+      "created_utc": { 
+        "type": "date", 
+        "format": "epoch_second",
+        "fields": {
+          "year": {
+            "type": "date",
+            "format": "epoch_second"
           }
-        },
-        "parent_id": { "type": "keyword" },
-        "score": { 
-          "type": "integer",
-          "fields": {
-            "normalized": {
-              "type": "scaled_float",
-              "scaling_factor": 100
-            }
+        }
+      },
+      "parent_id": { "type": "keyword" },
+      "score": { 
+        "type": "integer",
+        "fields": {
+          "normalized": {
+            "type": "scaled_float",
+            "scaling_factor": 100
           }
-        },
-        "sentiment_score": { "type": "float" },
-        "sentiment_category": { 
-          "type": "keyword",
-          "null_value": "neutral"
-        },
-        "collection_date": { "type": "date" }
-      }
-    },
-    "settings": {
-      "analysis": {
-        "analyzer": {
-          "folding": {
-            "type": "custom",
-            "tokenizer": "standard",
-            "filter": [
-              "lowercase",
-              "asciifolding"
-            ]
-          }
+        }
+      },
+      "sentiment_score": { "type": "float" },
+      "sentiment_category": { 
+        "type": "keyword",
+        "null_value": "neutral"
+      },
+      "collection_date": { "type": "date" },
+      "time_from_post_in_minutes": { "type": "float" },
+      "time_from_post_in_hours": { "type": "float" },
+      "time_bucket": { "type": "keyword" },
+      "post_sentiment": { "type": "float" },
+      "post_score": { "type": "integer" },
+      "post_comment_count": { "type": "integer" },
+      "comment_depth": { "type": "integer" },
+      "is_top_level": { "type": "boolean" }
+    }
+  },
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "folding": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding"
+          ]
         }
       }
     }
+  }
 }

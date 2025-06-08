@@ -8,7 +8,8 @@ from data_collection.reddit_data_collector import RedditDataCollector
 from data_collection.elasticsearch_client import ElasticsearchClient
 from data_collection.nlp_features import RedditDataEnricher
 from data_collection.location_processor import LocationProcessor
-from data_collection.person_name_processor import SemanticNameDeduplicator  
+from data_collection.person_name_processor import SemanticNameDeduplicator
+from data_collection.utils import Utils
 
 def main():
     """Main function to orchestrate the data pipeline"""
@@ -67,28 +68,35 @@ def main():
     date_str = datetime.now().strftime("%Y-%m-%d")
     elasticsearch_date = date_str.replace("-", ".")
 
-    # Save processed posts
-    print("\n--- STEP 5: SAVING PROCESSED POSTS ---")
-    with open(posts_dir / f"posts_{date_str}.json", "w", encoding="utf-8") as f:
-        json.dump(processed_posts, f, ensure_ascii=False, indent=4)
-    print(f"Saved {len(processed_posts)} processed posts")
-
     # Only proceed with corresponding comments if we got posts
     if post_ids:
         comments = reddit_collector.collect_comments(post_ids)  # Remove comments_dir parameter
         
         # Enrich comments
-        print("\n--- STEP 6: ENRICHING COMMENTS WITH NLP FEATURES ---")
+        print("\n--- STEP 5: ENRICHING COMMENTS WITH NLP FEATURES ---")
         enriched_comments = [enricher.enrich_comment(comment) for comment in comments]
-        
-        # Save enriched comments
-        print("\n--- STEP 7: SAVING ENRICHED COMMENTS ---")
-        with open(comments_dir / f"comments_{date_str}.json", "w", encoding="utf-8") as f:
-            json.dump(enriched_comments, f, ensure_ascii=False, indent=4)
-        print(f"Saved {len(enriched_comments)} enriched comments")
+
+    # Create additional comment based metrics in the posts data
+    print("\n--- STEP 6: CREATING ADDITIONAL COMMENT BASED METRICS IN THE POSTS DATA ---")
     
+    metrics_builder = Utils()
+    processed_posts = metrics_builder.add_comment_metrics(processed_posts, enriched_comments)
+    processed_comments = metrics_builder.add_post_metrics(processed_posts, enriched_comments)
+
+    # Save processed posts
+    print("\n--- STEP 7: SAVING PROCESSED POSTS ---")
+    with open(posts_dir / f"posts_{date_str}.json", "w", encoding="utf-8") as f:
+        json.dump(processed_posts, f, ensure_ascii=False, indent=4)
+    print(f"Saved {len(processed_posts)} processed posts")
+
+    # Save processed comments
+    print("\n--- STEP 8: SAVING PROCESSED COMMENTS ---")
+    with open(comments_dir / f"comments_{date_str}.json", "w", encoding="utf-8") as f:
+        json.dump(processed_comments, f, ensure_ascii=False, indent=4)
+    print(f"Saved {len(processed_comments)} processed comments")
+
     # Load data into Elasticsearch
-    print("\n--- STEP 8: LOADING DATA INTO ELASTICSEARCH ---")
+    print("\n--- STEP 9: LOADING DATA INTO ELASTICSEARCH ---")
 
     # Initialize Elasticsearch client
     es_client = ElasticsearchClient(host="elasticsearch", port=9200, scheme="http")
