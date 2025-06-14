@@ -139,7 +139,7 @@ class RedditDataEnricher:
         
         # Remove all punctuation except hyphens
         # This converts U.S. → US, U.K. → UK, etc.
-        text = re.sub(r"[^\w\s';’,\-]", '', text)
+        text = re.sub(r"[^\w\s'’,\-]", '', text)
         
         # Clean up multiple spaces
         text = re.sub(r'\s+', ' ', text)

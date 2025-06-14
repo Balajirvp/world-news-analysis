@@ -1,5 +1,8 @@
 import logging
+import json
+from pathlib import Path
 from typing import List, Dict, Tuple, Optional
+from datetime import datetime
 
 # Import geocoding libraries
 from geopy.geocoders import Nominatim
@@ -18,16 +21,28 @@ class LocationProcessor:
     geocoding them to obtain country names and ISO codes, and mapping to regions.
     """
 
-    def __init__(self, user_agent="reddit_worldnews_pipeline"):
+    def __init__(self, user_agent="reddit_worldnews_pipeline", cache_dir="data"):
         """
-        Initializes the LocationProcessor with geocoding tools and direct mappings.
+        Initializes the LocationProcessor with geocoding tools and persistent caching.
         """
         self.geolocator = Nominatim(user_agent=user_agent)
         self.geocode = RateLimiter(self.geolocator.geocode, min_delay_seconds=1.0, max_retries=1)
         
-        # Cache for location lookups to avoid repeated geocoding
-        self.location_cache = {}
-        self.region_cache = {}
+        # Setup cache files
+        self.cache_dir = Path(cache_dir)
+        self.cache_dir.mkdir(exist_ok=True)
+        self.location_cache_file = self.cache_dir / "location_cache.json"
+        self.region_cache_file = self.cache_dir / "region_cache.json"
+        self.corrections_file = self.cache_dir / "location_corrections.json"
+        
+        # Load existing caches or initialize empty ones
+        self.location_cache = self._load_cache(self.location_cache_file)
+        self.region_cache = self._load_cache(self.region_cache_file)
+        self.corrections = self._load_cache(self.corrections_file)
+        
+        print(f"Loaded {len(self.location_cache)} location mappings from cache")
+        print(f"Loaded {len(self.region_cache)} region mappings from cache")
+        print(f"Loaded {len(self.corrections)} manual corrections from cache")
 
         self.middle_east_countries = {
             'Israel', 'Palestine, State of', 'Iran, Islamic Republic of', 'Iraq', 
@@ -35,7 +50,6 @@ class LocationProcessor:
             'United Arab Emirates', 'Qatar', 'Kuwait', 'Bahrain', 'Oman',
             'Turkey', 'Afghanistan', 'Cyprus'
         }
-        
         
         self.direct_mappings = {
             # Standard abbreviations
@@ -104,10 +118,67 @@ class LocationProcessor:
             'South China Sea': ('China', 'CN'),
         }
 
+    def _load_cache(self, cache_file: Path) -> dict:
+        """Load cache from JSON file, return empty dict if file doesn't exist"""
+        try:
+            if cache_file.exists():
+                with open(cache_file, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+        except (json.JSONDecodeError, FileNotFoundError) as e:
+            logging.warning(f"Could not load cache from {cache_file}: {e}")
+        return {}
+    
+    def _save_cache_sorted(self, cache_data: dict, cache_file: Path, add_metadata: bool = True) -> None:
+        """Save cache to JSON file with sorted keys and metadata"""
+        try:
+            output_data = {}
+            
+            # Add metadata header for better readability
+            if add_metadata:
+                output_data["_metadata"] = {
+                    "last_updated": datetime.now().isoformat(),
+                    "total_entries": len([k for k in cache_data.keys() if not k.startswith('_')]),
+                    "description": self._get_cache_description(cache_file.name)
+                }
+            
+            # Add sorted data (excluding metadata keys)
+            data_keys = [k for k in cache_data.keys() if not k.startswith('_')]
+            for key in sorted(data_keys, key=str.lower):
+                output_data[key] = cache_data[key]
+            
+            with open(cache_file, 'w', encoding='utf-8') as f:
+                json.dump(output_data, f, indent=2, ensure_ascii=False)
+                
+        except Exception as e:
+            logging.error(f"Could not save cache to {cache_file}: {e}")
+    
+    def _get_cache_description(self, filename: str) -> str:
+        """Get description for cache metadata"""
+        descriptions = {
+            "location_cache.json": "Maps location names to [country_name, iso_code]. Automatically generated from geocoding.",
+            "region_cache.json": "Maps 'ISO - Country Name' to geopolitical regions. Format: 'US - United States': 'North America'",
+            "location_corrections.json": "Manual corrections for wrong location mappings. Edit this file to fix errors."
+        }
+        return descriptions.get(filename, "Cache file")
+    
+    def save_caches(self, name: str = None) -> None:
+        """
+        Save specified cache(s) to disk with sorting and metadata.
+        Args:
+            name (str, optional): 'location', 'region', or None to save both.
+        """
+        if name == "location":
+            self._save_cache_sorted(self.location_cache, self.location_cache_file)
+            logging.info(f"Saved {len([k for k in self.location_cache.keys() if not k.startswith('_')])} location mappings to cache")
+        elif name == "region":
+            self._save_cache_sorted(self.region_cache, self.region_cache_file)
+            logging.info(f"Saved {len([k for k in self.region_cache.keys() if not k.startswith('_')])} region mappings to cache")
+        
+
     def get_country_info(self, location: str) -> Tuple[Optional[str], Optional[str]]:
         """
         Gets the country name and ISO code for a given location.
-        Uses caching to avoid repeated lookups.
+        Uses corrections first, then cache, then geocoding.
 
         Args:
             location (str): The location string to geocode.
@@ -121,26 +192,36 @@ class LocationProcessor:
 
         location = location.strip()
         
-        # Check cache first
+        # 1. Check corrections first (highest priority)
+        if location in self.corrections:
+            correction = self.corrections[location]
+            if isinstance(correction, list) and len(correction) == 2:
+                return tuple(correction)
+        
+        # 2. Check cache
         if location in self.location_cache:
-            return self.location_cache[location]
+            cached_result = self.location_cache[location]
+            if isinstance(cached_result, list) and len(cached_result) == 2:
+                return tuple(cached_result)
+            elif isinstance(cached_result, tuple) and len(cached_result) == 2:
+                return cached_result
 
-        # 1. Check direct mappings (fastest)
+        # 3. Check direct mappings
         if location in self.direct_mappings:
             country_name, iso_code = self.direct_mappings[location]
-            self.location_cache[location] = (country_name, iso_code)
+            self.location_cache[location] = [country_name, iso_code]
             return country_name, iso_code
 
-        # 2. Check if it's already a country name
+        # 4. Check if it's already a country name
         try:
             country = pycountry.countries.search_fuzzy(location)[0]
             result = (country.name, country.alpha_2)
-            self.location_cache[location] = result
+            self.location_cache[location] = [result[0], result[1]]
             return result
         except:
             pass
 
-        # 3. Use geocoding
+        # 5. Use geocoding
         try:
             geocode_result = self.geocode(location, exactly_one=True, language='en')
             if geocode_result and hasattr(geocode_result, 'raw') and geocode_result.raw.get('lat') and geocode_result.raw.get('lon'):
@@ -155,7 +236,7 @@ class LocationProcessor:
                             country_obj = pycountry.countries.get(alpha_2=country_code)
                             if country_obj:
                                 result = (country_obj.name, country_obj.alpha_2)
-                                self.location_cache[location] = result
+                                self.location_cache[location] = [result[0], result[1]]
                                 return result
                         except:
                             pass
@@ -168,7 +249,7 @@ class LocationProcessor:
             logging.error(f"Error geocoding {location}: {e}")
 
         # Cache the failure to avoid repeated attempts
-        self.location_cache[location] = (None, None)
+        self.location_cache[location] = [None, None]
         return None, None
 
     def get_continent_from_country(self, country_name: str, iso_code: str = None) -> Optional[str]:
@@ -185,14 +266,18 @@ class LocationProcessor:
         if not country_name:
             return None
             
+        # Create human-readable cache key: "US - United States" or just country name if no ISO
+        if iso_code:
+            cache_key = f"{iso_code} - {country_name}"
+        else:
+            cache_key = country_name
+            
         # Check cache first
-        cache_key = iso_code or country_name
         if cache_key in self.region_cache:
             return self.region_cache[cache_key]
         
         continent = None
         
-        # Try pycountry_convert first if available
         if iso_code:
             try:
                 continent_code = pc.country_alpha2_to_continent_code(iso_code)
@@ -205,7 +290,7 @@ class LocationProcessor:
             except Exception as e:
                 logging.debug(f"pycountry_convert failed for {country_name} ({iso_code}): {e}")
         
-        # Cache the result
+        # Cache the result with readable key
         self.region_cache[cache_key] = continent
         return continent
 
@@ -256,6 +341,7 @@ class LocationProcessor:
     def process_posts(self, posts: List[Dict]) -> List[Dict]:
         """
         Processes a list of posts to add updated location information and regions.
+        Automatically saves cache after processing.
 
         Args:
             posts (List[Dict]): A list of post dictionaries.
@@ -264,6 +350,10 @@ class LocationProcessor:
             List[Dict]: A list of post dictionaries with added location information.
         """
         processed_posts = []
+        cache_updates = 0
+        initial_location_cache_size = len([k for k in self.location_cache.keys() if not k.startswith('_')])
+        initial_region_cache_size = len([k for k in self.region_cache.keys() if not k.startswith('_')])
+
         for post in posts:
             try:
                 locations = post.get('locations_mentioned', [])               
@@ -285,5 +375,19 @@ class LocationProcessor:
                 post['locations_mentioned_iso_code'] = []
                 post['regions_mentioned'] = []
                 processed_posts.append(post)
-                
+        
+        # Save cache if we added new entries
+        current_location_cache_size = len([k for k in self.location_cache.keys() if not k.startswith('_')])
+        current_region_cache_size = len([k for k in self.region_cache.keys() if not k.startswith('_')])
+
+        location_cache_updates = current_location_cache_size - initial_location_cache_size
+        region_cache_updates = current_region_cache_size - initial_region_cache_size
+        
+        if location_cache_updates > 0:
+            self.save_caches("location")
+            logging.info(f"Added {location_cache_updates} new location mappings to cache")
+        if region_cache_updates > 0:
+            self.save_caches("region")
+            logging.info(f"Added {region_cache_updates} new region mappings to cache")
+        
         return processed_posts
