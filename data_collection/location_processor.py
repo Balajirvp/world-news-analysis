@@ -7,6 +7,7 @@ from geopy.extra.rate_limiter import RateLimiter
 from geopy.exc import GeocoderTimedOut, GeocoderServiceError
 import reverse_geocoder as rg
 import pycountry
+import pycountry_convert as pc
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -14,7 +15,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 class LocationProcessor:
     """
     A class to process locations mentioned in Reddit posts,
-    geocoding them to obtain country names and ISO codes.
+    geocoding them to obtain country names and ISO codes, and mapping to regions.
     """
 
     def __init__(self, user_agent="reddit_worldnews_pipeline"):
@@ -23,45 +24,49 @@ class LocationProcessor:
         """
         self.geolocator = Nominatim(user_agent=user_agent)
         self.geocode = RateLimiter(self.geolocator.geocode, min_delay_seconds=1.0, max_retries=1)
+        
+        # Cache for location lookups to avoid repeated geocoding
+        self.location_cache = {}
+        self.region_cache = {}
+
+        self.middle_east_countries = {
+            'Israel', 'Palestine, State of', 'Iran, Islamic Republic of', 'Iraq', 
+            'Saudi Arabia', 'Yemen', 'Syrian Arab Republic', 'Jordan', 'Lebanon', 
+            'United Arab Emirates', 'Qatar', 'Kuwait', 'Bahrain', 'Oman',
+            'Turkey', 'Afghanistan', 'Cyprus'
+        }
+        
+        
         self.direct_mappings = {
+            # Standard abbreviations
             'US': ('United States', 'US'),
-            'U': ('United States', 'US'),
-            'S': ('United States', 'US'),
-            'S.': ('United States', 'US'),
-            'K': ('United Kingdom', 'GB'),
             'UK': ('United Kingdom', 'GB'),
+            'USA': ('United States', 'US'),
             'UAE': ('United Arab Emirates', 'AE'),
+            'PRC': ('China', 'CN'),
+            
+            # Regional/Political designations
             'ROC': ('Taiwan, Province of China', 'TW'),
             'DR': ('Dominican Republic', 'DO'),
             'N Korea': ("Korea, Democratic People's Republic of", 'KP'),
             'S Korea': ('Korea, Republic of', 'KR'),
             'Korea': ('Korea, Republic of', 'KR'),
-            'S. Korea': ('Korea, Republic of', 'KR'),
-            'SA': ('Saudi Arabia', 'SA'),
-            'PRC': ('China', 'CN'),
-            'USA': ('United States', 'US'),
-            'U.S.': ('United States', 'US'),
-            'U.K.': ('United Kingdom', 'GB'),
-            'Kyiv': ('Ukraine', 'UA'),
-            'LoC': ('India', 'IN'),
-            'Gaza': ('Palestine, State of', 'PS'),
-            'West Bank': ('Palestine, State of', 'PS'),
-            'Kashmir': ('India', 'IN'),
-            'Moscow': ('Russian Federation', 'RU'),
-            'Kremlin': ('Russian Federation', 'RU'),
-            'Beijing': ('China', 'CN'),
+            
+            # Alternative country names
             'Britain': ('United Kingdom', 'GB'),
             'England': ('United Kingdom', 'GB'),
             'Scotland': ('United Kingdom', 'GB'),
+            'America': ('United States', 'US'),
+            
+            # Major cities mapped to countries
+            'Kyiv': ('Ukraine', 'UA'),
+            'Moscow': ('Russian Federation', 'RU'),
+            'Kremlin': ('Russian Federation', 'RU'),
+            'Beijing': ('China', 'CN'),
             'Istanbul': ('Turkey', 'TR'),
-            'Vatican': ('Holy See (Vatican City State)', 'VA'),
-            'Kursk': ('Russian Federation', 'RU'),
-            'Alberta': ('Canada', 'CA'),
-            'Crimea': ('Ukraine', 'UA'),
             'Rome': ('Italy', 'IT'),
             'Washington': ('United States', 'US'),
             'Berlin': ('Germany', 'DE'),
-            'South China Sea': ('China', 'CN'),
             'Vancouver': ('Canada', 'CA'),
             'White House': ('United States', 'US'),
             'Geneva': ('Switzerland', 'CH'),
@@ -71,23 +76,38 @@ class LocationProcessor:
             'Tehran': ('Iran, Islamic Republic of', 'IR'),
             'Warsaw': ('Poland', 'PL'),
             'Damascus': ('Syrian Arab Republic', 'SY'),
-            'Hong Kong': ('China', 'CN'),
-            'Kursk Oblast': ('Russian Federation', 'RU'),
             'Mexico City': ('Mexico', 'MX'),
-            'Ontario': ('Canada', 'CA'),
-            'America': ('United States', 'US'),
             'New York': ('United States', 'US'),
-            'Jammu': ('India', 'IN'),
             'New Delhi': ('India', 'IN'),
             'Mumbai': ('India', 'IN'),
             'Lahore': ('Pakistan', 'PK'),
             'Jerusalem': ('Israel', 'IL'),
-            'Tel Aviv': ('Israel', 'IL')
+            'Tel Aviv': ('Israel', 'IL'),
+            
+            # Regions/Territories
+            'Hong Kong': ('China', 'CN'),
+            'Vatican': ('Holy See (Vatican City State)', 'VA'),
+            'Alberta': ('Canada', 'CA'),
+            'Ontario': ('Canada', 'CA'),
+            'Kursk': ('Russian Federation', 'RU'),
+            'Kursk Oblast': ('Russian Federation', 'RU'),
+            'Crimea': ('Ukraine', 'UA'),
+            
+            # Disputed/Special territories
+            'Gaza': ('Palestine, State of', 'PS'),
+            'West Bank': ('Palestine, State of', 'PS'),
+            'Kashmir': ('India', 'IN'),
+            'LoC': ('India', 'IN'),  # Line of Control
+            'Jammu': ('India', 'IN'),
+            
+            # Geographic features
+            'South China Sea': ('China', 'CN'),
         }
 
     def get_country_info(self, location: str) -> Tuple[Optional[str], Optional[str]]:
         """
         Gets the country name and ISO code for a given location.
+        Uses caching to avoid repeated lookups.
 
         Args:
             location (str): The location string to geocode.
@@ -100,24 +120,31 @@ class LocationProcessor:
             return None, None
 
         location = location.strip()
+        
+        # Check cache first
+        if location in self.location_cache:
+            return self.location_cache[location]
 
         # 1. Check direct mappings (fastest)
         if location in self.direct_mappings:
             country_name, iso_code = self.direct_mappings[location]
+            self.location_cache[location] = (country_name, iso_code)
             return country_name, iso_code
 
         # 2. Check if it's already a country name
         try:
             country = pycountry.countries.search_fuzzy(location)[0]
-            return country.name, country.alpha_2
+            result = (country.name, country.alpha_2)
+            self.location_cache[location] = result
+            return result
         except:
             pass
 
         # 3. Use geocoding
         try:
-            result = self.geocode(location, exactly_one=True, language='en')
-            if result and hasattr(result, 'raw') and result.raw.get('lat') and result.raw.get('lon'):
-                lat, lon = float(result.raw['lat']), float(result.raw['lon'])
+            geocode_result = self.geocode(location, exactly_one=True, language='en')
+            if geocode_result and hasattr(geocode_result, 'raw') and geocode_result.raw.get('lat') and geocode_result.raw.get('lon'):
+                lat, lon = float(geocode_result.raw['lat']), float(geocode_result.raw['lon'])
 
                 # Get country from coordinates
                 results = rg.search((lat, lon))
@@ -127,7 +154,9 @@ class LocationProcessor:
                         try:
                             country_obj = pycountry.countries.get(alpha_2=country_code)
                             if country_obj:
-                                return country_obj.name, country_obj.alpha_2
+                                result = (country_obj.name, country_obj.alpha_2)
+                                self.location_cache[location] = result
+                                return result
                         except:
                             pass
         except GeocoderTimedOut:
@@ -135,51 +164,98 @@ class LocationProcessor:
             return self.get_country_info(location)
         except GeocoderServiceError as e:
             logging.error(f"Geocoding service error for {location}: {e}")
-            return None, None
         except Exception as e:
             logging.error(f"Error geocoding {location}: {e}")
-            return None, None
 
+        # Cache the failure to avoid repeated attempts
+        self.location_cache[location] = (None, None)
         return None, None
 
-    def process_locations(self, locations: List[str]) -> Tuple[List[str], List[str]]:
+    def get_continent_from_country(self, country_name: str, iso_code: str = None) -> Optional[str]:
         """
-        Processes a list of locations to update names and ISO codes.
+        Get continent/region for a country using pycountry_convert or fallback mapping.
+        
+        Args:
+            country_name (str): Standard country name
+            iso_code (str): ISO alpha-2 country code (optional)
+            
+        Returns:
+            Optional[str]: Continent/region name
+        """
+        if not country_name:
+            return None
+            
+        # Check cache first
+        cache_key = iso_code or country_name
+        if cache_key in self.region_cache:
+            return self.region_cache[cache_key]
+        
+        continent = None
+        
+        # Try pycountry_convert first if available
+        if iso_code:
+            try:
+                continent_code = pc.country_alpha2_to_continent_code(iso_code)
+                continent = pc.convert_continent_code_to_continent_name(continent_code)
+                
+                # Replace Asia with Middle East for Middle East countries
+                if continent == 'Asia' and country_name in self.middle_east_countries:
+                    continent = 'Middle East'
+
+            except Exception as e:
+                logging.debug(f"pycountry_convert failed for {country_name} ({iso_code}): {e}")
+        
+        # Cache the result
+        self.region_cache[cache_key] = continent
+        return continent
+
+    def process_locations(self, locations: List[str]) -> Tuple[List[str], List[str], List[str]]:
+        """
+        Processes a list of locations to get updated names, ISO codes, and regions.
+        Ensures deduplication of countries.
 
         Args:
             locations (List[str]): A list of location strings.
 
         Returns:
-            Tuple[List[str], List[str]]: A tuple containing lists of updated location names and ISO codes.
+            Tuple[List[str], List[str], List[str]]: Updated country names, ISO codes, and regions.
         """
-        updated_names = []
-        iso_codes = []
-
+        if not locations:
+            return [], [], []
+        
+        # Use dict to maintain order while deduplicating
+        country_info = {}  # country_name -> (iso_code, region)
+        
         for location in locations:
-            if isinstance(location, str):
-                try:
-                    result = self.get_country_info(location)
-                    if isinstance(result, tuple) and len(result) == 2:
-                        country_name, iso_code = result
-                        updated_names.append(country_name if country_name else location)
-                        iso_codes.append(iso_code if iso_code else None)
-                    else:
-                        # Fallback if function doesn't return expected tuple
-                        updated_names.append(location)
-                        iso_codes.append(None)
-                except Exception as e:
-                    logging.error(f"Error processing location '{location}': {e}")
-                    updated_names.append(location)
-                    iso_codes.append(None)
-            else:
-                updated_names.append(location)
-                iso_codes.append(None)
-
-        return updated_names, iso_codes
+            if not isinstance(location, str) or not location.strip():
+                continue
+                
+            try:
+                country_name, iso_code = self.get_country_info(location)
+                
+                if country_name:
+                    # Get region for this country
+                    region = self.get_continent_from_country(country_name, iso_code)
+                    
+                    # Store in dict (automatically deduplicates)
+                    country_info[country_name] = (iso_code, region)
+                    
+            except Exception as e:
+                logging.error(f"Error processing location '{location}': {e}")
+        
+        # Extract deduplicated lists
+        updated_names = list(country_info.keys())
+        iso_codes = [info[0] for info in country_info.values()]
+        regions = [info[1] for info in country_info.values() if info[1]]
+        
+        # Deduplicate regions as well
+        unique_regions = list(dict.fromkeys(regions))  # Preserves order
+        
+        return updated_names, iso_codes, unique_regions
 
     def process_posts(self, posts: List[Dict]) -> List[Dict]:
         """
-        Processes a list of posts to add updated location information.
+        Processes a list of posts to add updated location information and regions.
 
         Args:
             posts (List[Dict]): A list of post dictionaries.
@@ -190,16 +266,24 @@ class LocationProcessor:
         processed_posts = []
         for post in posts:
             try:
-                locations = post.get('locations_mentioned', [])
-                if isinstance(locations, list):
-                    updated_names, iso_codes = self.process_locations(locations)
+                locations = post.get('locations_mentioned', [])               
+                if isinstance(locations, list) and locations:
+                    updated_names, iso_codes, regions = self.process_locations(locations)
                     post['locations_mentioned_updated'] = updated_names
                     post['locations_mentioned_iso_code'] = iso_codes
+                    post['regions_mentioned'] = regions
                 else:
                     post['locations_mentioned_updated'] = []
                     post['locations_mentioned_iso_code'] = []
-                processed_posts.append(post)
+                    post['regions_mentioned'] = []
+                    
+                processed_posts.append(post)                
             except Exception as e:
                 logging.error(f"Error processing post: {e}")
-                processed_posts.append(post)  # Append original post even if there's an error
+                # Add empty fields and continue
+                post['locations_mentioned_updated'] = []
+                post['locations_mentioned_iso_code'] = []
+                post['regions_mentioned'] = []
+                processed_posts.append(post)
+                
         return processed_posts

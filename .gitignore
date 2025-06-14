@@ -5,6 +5,7 @@
 *.csv
 *.pdf
 analysis/
+*.ndjson
 
 # Python
 *.ipynb

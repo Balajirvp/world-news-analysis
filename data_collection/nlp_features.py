@@ -25,7 +25,7 @@ class RedditDataEnricher:
         self.ner_pipeline = pipeline(
             "ner", 
             model=ner_model,
-            aggregation_strategy="simple",
+            aggregation_strategy="average",
             device=0 if torch.cuda.is_available() else -1,  # Use GPU if available
             torch_dtype=torch.float32
         )
@@ -38,53 +38,6 @@ class RedditDataEnricher:
             device=0 if torch.cuda.is_available() else -1,  # Use GPU if available
             torch_dtype=torch.float32
         )
-        
-        # Region mapping
-        self.region_mapping = {
-            "North America": [
-                "United States", "USA", "U.S.", "U.S.A.", "US", "Canada", "Mexico", 
-                "Guatemala", "Belize", "El Salvador", "Honduras", "Nicaragua", 
-                "Costa Rica", "Panama"
-            ],
-            "South America": [
-                "Brazil", "Argentina", "Chile", "Colombia", "Peru", "Venezuela", 
-                "Ecuador", "Bolivia", "Paraguay", "Uruguay", "Guyana", "Suriname"
-            ],
-            "Europe": [
-                "United Kingdom", "UK", "Britain", "England", "Scotland", "Ireland",
-                "France", "Germany", "Italy", "Spain", "Portugal", "Netherlands",
-                "Belgium", "Switzerland", "Austria", "Sweden", "Norway", "Denmark",
-                "Finland", "Iceland", "Poland", "Russia", "Ukraine", "Greece",
-                "Turkey", "Hungary", "Czech Republic", "Romania", "Bulgaria"
-            ],
-            "Middle East": [
-                "Israel", "Palestine", "Iran", "Iraq", "Saudi Arabia", "Yemen",
-                "Syria", "Jordan", "Lebanon", "UAE", "United Arab Emirates", 
-                "Qatar", "Kuwait", "Bahrain", "Oman"
-            ],
-            "Africa": [
-                "Egypt", "Libya", "Tunisia", "Algeria", "Morocco", "Sudan", 
-                "South Sudan", "Ethiopia", "Somalia", "Kenya", "Uganda", "Rwanda",
-                "Tanzania", "Nigeria", "Ghana", "South Africa", "Zimbabwe", 
-                "Democratic Republic of Congo", "DRC", "Congo"
-            ],
-            "Asia": [
-                "China", "Japan", "South Korea", "North Korea", "India", "Pakistan",
-                "Bangladesh", "Sri Lanka", "Nepal", "Vietnam", "Thailand", 
-                "Indonesia", "Malaysia", "Philippines", "Singapore", "Taiwan",
-                "Hong Kong", "Myanmar", "Cambodia", "Laos"
-            ],
-            "Oceania": [
-                "Australia", "New Zealand", "Papua New Guinea", "Fiji", "Solomon Islands",
-                "Vanuatu", "Samoa", "Tonga"
-            ]
-        }
-        
-        # Create reverse mapping for efficient lookup
-        self.country_to_region = {}
-        for region, countries in self.region_mapping.items():
-            for country in countries:
-                self.country_to_region[country.lower()] = region
     
     def extract_domain(self, url):
         """Extract domain from URL"""
@@ -156,14 +109,15 @@ class RedditDataEnricher:
             for entity in entities:
                 entity_text = entity['word']
                 entity_type = entity['entity_group']
+                entity_score = entity['score']
                 
-                if entity_type == 'PER':
+                if entity_type == 'PER' and entity_score > 0.9: 
                     persons.append(entity_text)
-                elif entity_type == 'LOC':
+                elif entity_type == 'LOC' and entity_score > 0.9:
                     locations.append(entity_text)
-                elif entity_type == 'ORG':
+                elif entity_type == 'ORG' and entity_score > 0.9:
                     organizations.append(entity_text)
-                elif entity_type == 'MISC':
+                elif entity_type == 'MISC' and entity_score > 0.9:
                     misc.append(entity_text)
             
             # Remove duplicates
@@ -177,26 +131,20 @@ class RedditDataEnricher:
         except Exception as e:
             print(f"Error in entity extraction: {e}")
             return [], [], [], []
-    
-    def map_locations_to_regions(self, locations):
-        """Map locations to countries and regions"""
-        if not locations:
-            return []
+
+    def preprocess_text(self, text):
+        """Clean text for better person/location NER performance"""
+        if not text:
+            return ""
         
-        regions = set()
+        # Remove all punctuation except hyphens
+        # This converts U.S. → US, U.K. → UK, etc.
+        text = re.sub(r"[^\w\s';’,\-]", '', text)
         
-        for location in locations:
-            location_lower = location.lower()
-            if location_lower in self.country_to_region:
-                regions.add(self.country_to_region[location_lower])
+        # Clean up multiple spaces
+        text = re.sub(r'\s+', ' ', text)
         
-        # Check for direct region mentions
-        location_text = ' '.join(locations).lower()
-        for region in self.region_mapping.keys():
-            if region.lower() in location_text:
-                regions.add(region)
-        
-        return list(regions)
+        return text.strip()
     
     def enrich_post(self, post):
         """Add enrichment data to a post"""
@@ -204,9 +152,6 @@ class RedditDataEnricher:
         
         # Extract text for analysis
         text = post.get('title', '')
-        if 'description' in post and post['description']:
-            text += ' ' + post['description']
-        
         # Extract domain from URL
         url = post.get('url')
         domain = self.extract_domain(url)
@@ -216,17 +161,15 @@ class RedditDataEnricher:
         sentiment_score, sentiment_category = self.analyze_sentiment(text)
         enriched_post['sentiment_score'] = sentiment_score
         enriched_post['sentiment_category'] = sentiment_category
+
+        processed_text = self.preprocess_text(text)  # Clean text for better NER performance
         
         # Entity extraction
-        persons, locations, organizations, misc = self.extract_entities(text)
+        persons, locations, organizations, misc = self.extract_entities(processed_text)
         enriched_post['persons_mentioned'] = persons
         enriched_post['locations_mentioned'] = locations
         enriched_post['organizations_mentioned'] = organizations
         enriched_post['misc_entities_mentioned'] = misc
-        
-        # Map locations to regions
-        regions = self.map_locations_to_regions(locations)
-        enriched_post['regions_mentioned'] = list(regions)
         
         return enriched_post
     
@@ -243,60 +186,3 @@ class RedditDataEnricher:
         enriched_comment['sentiment_category'] = sentiment_category
         
         return enriched_comment
-    
-    def process_files(self, posts_file, comments_file, output_posts_file, output_comments_file):
-        """Process JSON files and save enriched data using parallel processing"""
-        
-        # --- Process posts ---
-        print(f"Processing posts from {posts_file}")
-        with open(posts_file, 'r', encoding='utf-8') as f:
-            posts = json.load(f)
-        
-        enriched_posts = []
-        with concurrent.futures.ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
-            # Use a list comprehension to submit all tasks at once
-            futures = [executor.submit(self.enrich_post, post) for post in posts]
-            
-            # Iterate over the futures as they complete
-            for i, future in enumerate(concurrent.futures.as_completed(futures)):
-                if i > 0 and i % 10 == 0:
-                    print(f"Processed {i}/{len(posts)} posts")
-                try:
-                    enriched_post = future.result()  # Get the result of the enrichment
-                    enriched_posts.append(enriched_post)
-                except Exception as e:
-                    print(f"Error enriching post: {e}")
-        
-        # Save enriched posts
-        with open(output_posts_file, 'w', encoding='utf-8') as f:
-            json.dump(enriched_posts, f, ensure_ascii=False, indent=2)
-        
-        print(f"Saved enriched posts to {output_posts_file}")
-        
-        # --- Process comments ---
-        print(f"Processing comments from {comments_file}")
-        with open(comments_file, 'r', encoding='utf-8') as f:
-            comments = json.load(f)
-        
-        enriched_comments = []
-        with concurrent.futures.ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
-            # Use a list comprehension to submit all tasks at once
-            futures = [executor.submit(self.enrich_comment, comment) for comment in comments]
-            
-            # Iterate over the futures as they complete
-            for i, future in enumerate(concurrent.futures.as_completed(futures)):
-                if i > 0 and i % 100 == 0:
-                    print(f"Processed {i}/{len(comments)} comments")
-                try:
-                    enriched_comment = future.result()  # Get the result of the enrichment
-                    enriched_comments.append(enriched_comment)
-                except Exception as e:
-                    print(f"Error enriching comment: {e}")
-        
-        # Save enriched comments
-        with open(output_comments_file, 'w', encoding='utf-8') as f:
-            json.dump(enriched_comments, f, ensure_ascii=False, indent=2)
-        
-        print(f"Saved enriched comments to {output_comments_file}")
-        
-        return enriched_posts, enriched_comments
