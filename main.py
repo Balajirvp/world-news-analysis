@@ -8,7 +8,7 @@ from data_collection.reddit_data_collector import RedditDataCollector
 from data_collection.elasticsearch_client import ElasticsearchClient
 from data_collection.nlp_features import RedditDataEnricher
 from data_collection.location_processor import LocationProcessor
-from data_collection.person_name_processor import SemanticNameDeduplicator
+from data_collection.person_name_mapper import WikipediaPersonProcessor
 from data_collection.utils import Utils
 
 def main():
@@ -46,7 +46,7 @@ def main():
 
     # Initialize Location and Person Processors
     location_processor = LocationProcessor()
-    person_processor = SemanticNameDeduplicator()
+    person_processor = WikipediaPersonProcessor()
 
     # Collect and enrich posts data from Reddit
     print("\n--- STEP 1: COLLECTING DATA FROM REDDIT ---")
@@ -63,7 +63,10 @@ def main():
     # Process person names
     print("\n--- STEP 4: PROCESSING PERSON NAMES TO THEIR CANONICAL FORM ---")
     processed_posts = person_processor.update_persons_mentioned(processed_posts)
-    
+
+    with open("./analysis/PERSON_NAME_CODE_CHECK.json", "w", encoding="utf-8") as f:
+        json.dump(processed_posts, f, ensure_ascii=False, indent=4)
+
     # Today's date
     date_str = datetime.now().strftime("%Y-%m-%d")
     elasticsearch_date = date_str.replace("-", ".")
