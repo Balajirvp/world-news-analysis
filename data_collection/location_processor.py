@@ -350,7 +350,6 @@ class LocationProcessor:
             List[Dict]: A list of post dictionaries with added location information.
         """
         processed_posts = []
-        cache_updates = 0
         initial_location_cache_size = len([k for k in self.location_cache.keys() if not k.startswith('_')])
         initial_region_cache_size = len([k for k in self.region_cache.keys() if not k.startswith('_')])
 
