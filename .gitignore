@@ -7,7 +7,6 @@
 analysis/
 *.ndjson
 *.txt
-*.json
 
 # Python
 *.ipynb
