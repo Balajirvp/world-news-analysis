@@ -9,8 +9,8 @@
     "AE"
   ],
   "Adampur Airbase": [
-    null,
-    null
+    "India",
+    "IN"
   ],
   "Afghanistan": [
     "Afghanistan",
@@ -21,8 +21,8 @@
     "AF"
   ],
   "Africa": [
-    "South Africa",
-    "ZA"
+    null,
+    null
   ],
   "Ahmedabad": [
     "India",
@@ -61,8 +61,8 @@
     "AQ"
   ],
   "Arctic": [
-    "Antarctica",
-    "AQ"
+    null,
+    null
   ],
   "Argentina": [
     "Argentina",
@@ -81,8 +81,8 @@
     "IL"
   ],
   "Asia": [
-    "Russian Federation",
-    "RU"
+    null,
+    null
   ],
   "Asia Singapore": [
     "Singapore",
@@ -93,8 +93,8 @@
     "GR"
   ],
   "Atlantic": [
-    "Colombia",
-    "CO"
+    null,
+    null
   ],
   "Australia": [
     "Australia",
@@ -125,8 +125,8 @@
     "PK"
   ],
   "Baltic Sea": [
-    "Poland",
-    "PL"
+    null,
+    null
   ],
   "Bandar Abbas": [
     "Iran, Islamic Republic of",
@@ -185,8 +185,8 @@
     "DE"
   ],
   "Black Sea": [
-    "Ukraine",
-    "UA"
+    null,
+    null
   ],
   "Blatten": [
     "Switzerland",
@@ -233,12 +233,12 @@
     "AR"
   ],
   "Buenos Aires City": [
-    "Mexico",
-    "MX"
+    "Argentina",
+    "AR"
   ],
   "Buenos Aires Province": [
-    null,
-    null
+    "Argentina",
+    "AR"
   ],
   "Bulgaria": [
     "Bulgaria",
@@ -277,24 +277,24 @@
     "CA"
   ],
   "Canal Zone": [
-    "Chile",
-    "CL"
+    "Panama",
+    "PA"
   ],
   "Caribbean": [
-    "Haiti",
-    "HT"
+    null,
+    null
   ],
   "Central Asia": [
-    "Malaysia",
-    "MY"
+    null,
+    null
   ],
   "Chagos": [
-    "Spain",
-    "ES"
+    "British Indian Ocean Territory",
+    "IO"
   ],
   "Chagos Islands": [
-    "Maldives",
-    "MV"
+    "British Indian Ocean Territory",
+    "IO"
   ],
   "Chattisgarh": [
     "India",
@@ -397,24 +397,24 @@
     "CD"
   ],
   "Earth": [
-    "United States",
-    "US"
+    null,
+    null
   ],
   "East Asia": [
-    "China",
-    "CN"
+    null,
+    null
   ],
   "East China Sea": [
-    "China",
-    "CN"
+    null,
+    null
   ],
   "East Jerusalem": [
-    "Kenya",
-    "KE"
+    "Palestine, State of",
+    "PS"
   ],
   "Eastern Europe": [
-    "Poland",
-    "PL"
+    null,
+    null
   ],
   "Ecuador": [
     "Ecuador",
@@ -449,8 +449,8 @@
     "ET"
   ],
   "Europe": [
-    "Germany",
-    "DE"
+    null,
+    null
   ],
   "Europe Canada": [
     "Canada",
@@ -505,8 +505,8 @@
     "GB"
   ],
   "Greater Khartoum": [
-    "Australia",
-    "AU"
+    "Sudan",
+    "SD"
   ],
   "Greece": [
     "Greece",
@@ -529,12 +529,12 @@
     "IN"
   ],
   "Gulf": [
-    "Papua New Guinea",
-    "PG"
+    null,
+    null
   ],
   "Gulf of Oman": [
-    "Oman",
-    "OM"
+    null,
+    null
   ],
   "Guyana": [
     "Guyana",
@@ -581,12 +581,12 @@
     "HN"
   ],
   "Hong Kong": [
-    "China",
-    "CN"
+    "Hong Kong",
+    "HK"
   ],
   "Hudson Bay": [
-    "Canada",
-    "CA"
+    null,
+    null
   ],
   "Hungary": [
     "Hungary",
@@ -605,12 +605,12 @@
     "IN"
   ],
   "Indian Kashmir": [
-    "Sweden",
-    "SE"
+    "India",
+    "IN"
   ],
   "Indian Ocean": [
-    "British Indian Ocean Territory",
-    "IO"
+    null,
+    null
   ],
   "Indonesia": [
     "Indonesia",
@@ -633,11 +633,11 @@
     "IL"
   ],
   "Israel Gulf": [
-    null,
-    null
+    "Israel",
+    "IL"
   ],
   "Istanbul": [
-    "Turkey",
+    "Türkiye",
     "TR"
   ],
   "Italy": [
@@ -649,8 +649,8 @@
     "CI"
   ],
   "Jabalya": [
-    "Israel",
-    "IL"
+    "Palestine, State of",
+    "PS"
   ],
   "Jammu": [
     "India",
@@ -669,16 +669,16 @@
     "IL"
   ],
   "Jhelum River": [
-    "Pakistan",
-    "PK"
+    null,
+    null
   ],
   "Jordan": [
     "Jordan",
     "JO"
   ],
   "Kakhovka Dam": [
-    null,
-    null
+    "Ukraine",
+    "UA"
   ],
   "Kananaskis": [
     "Canada",
@@ -737,12 +737,12 @@
     "KR"
   ],
   "Kosovo": [
-    "Serbia",
-    "RS"
+    "Kosovo",
+    "XK"
   ],
   "Kotli": [
-    "India",
-    "IN"
+    "Pakistan",
+    "PK"
   ],
   "Krakow": [
     "Poland",
@@ -761,8 +761,8 @@
     "RU"
   ],
   "Kursk Oblast Seoul": [
-    null,
-    null
+    "Russian Federation",
+    "RU"
   ],
   "Kyiv": [
     "Ukraine",
@@ -781,8 +781,8 @@
     "CY"
   ],
   "Latin America": [
-    "United States",
-    "US"
+    null,
+    null
   ],
   "Latvia": [
     "Latvia",
@@ -797,8 +797,8 @@
     "LB"
   ],
   "Leh": [
-    "Slovenia",
-    "SI"
+    "India",
+    "IN"
   ],
   "Libya": [
     "Libya",
@@ -849,16 +849,16 @@
     "UA"
   ],
   "Mars": [
-    "Marshall Islands",
-    "MH"
+    null,
+    null
   ],
   "Mauritius": [
     "Mauritius",
     "MU"
   ],
   "Mediterranean": [
-    "Greece",
-    "GR"
+    null,
+    null
   ],
   "Melbourne": [
     "Australia",
@@ -877,12 +877,12 @@
     "MX"
   ],
   "Middle East": [
-    "United States",
-    "US"
+    null,
+    null
   ],
   "Mideast": [
-    "Greece",
-    "GR"
+    null,
+    null
   ],
   "Misrata": [
     "Libya",
@@ -897,8 +897,8 @@
     "ME"
   ],
   "Moon": [
-    "Estonia",
-    "EE"
+    null,
+    null
   ],
   "Morocco": [
     "Morocco",
@@ -941,8 +941,8 @@
     "IR"
   ],
   "Nato": [
-    "Bangladesh",
-    "BD"
+    null,
+    null
   ],
   "Nepal": [
     "Nepal",
@@ -969,20 +969,20 @@
     "NI"
   ],
   "Nice": [
-    "Serbia",
-    "RS"
+    "France",
+    "FR"
   ],
   "Nigeria": [
     "Nigeria",
     "NG"
   ],
   "North": [
-    "Cameroon",
-    "CM"
+    null,
+    null
   ],
   "North America": [
-    "Canada",
-    "CA"
+    null,
+    null
   ],
   "North Darfur": [
     "Sudan",
@@ -997,16 +997,16 @@
     "MK"
   ],
   "North Pole": [
-    "United States",
-    "US"
+    null,
+    null
   ],
   "Northern Ireland": [
     "United Kingdom",
     "GB"
   ],
   "Northern Mozambique": [
-    "Tanzania, United Republic of",
-    "TZ"
+    "Mozambique",
+    "MZ"
   ],
   "Norway": [
     "Norway",
@@ -1045,8 +1045,8 @@
     "CA"
   ],
   "Pacific": [
-    "United States",
-    "US"
+    null,
+    null
   ],
   "Pak": [
     "Pakistan",
@@ -1085,8 +1085,8 @@
     "DE"
   ],
   "Pearson": [
-    "United Kingdom",
-    "GB"
+    "Canada",
+    "CA"
   ],
   "Peru": [
     "Peru",
@@ -1105,16 +1105,16 @@
     "PG"
   ],
   "Pokrovsk": [
-    "Russian Federation",
-    "RU"
+    "Ukraine",
+    "UA"
   ],
   "Poland": [
     "Poland",
     "PL"
   ],
   "Poonch": [
-    "India",
-    "IN"
+    "Pakistan",
+    "PK"
   ],
   "Port Sudan": [
     "Sudan",
@@ -1157,8 +1157,8 @@
     "PS"
   ],
   "Red Sea": [
-    "Sudan",
-    "SD"
+    null,
+    null
   ],
   "Romania": [
     "Romania",
@@ -1169,8 +1169,8 @@
     "IT"
   ],
   "Rukban": [
-    "Yemen",
-    "YE"
+    "Jordan",
+    "JO"
   ],
   "Russia": [
     "Russian Federation",
@@ -1197,20 +1197,20 @@
     "SA"
   ],
   "Saana International Airport": [
-    null,
-    null
+    "Yemen",
+    "YE"
   ],
   "Sahel": [
-    "Burkina Faso",
-    "BF"
+    null,
+    null
   ],
   "Saigon": [
     "Viet Nam",
     "VN"
   ],
   "Sanaa": [
-    "Somalia",
-    "SO"
+    "Yemen",
+    "YE"
   ],
   "Sanaa International Airport": [
     "Yemen",
@@ -1257,8 +1257,8 @@
     "IR"
   ],
   "Shahid Rajee": [
-    null,
-    null
+    "Iran, Islamic Republic of",
+    "IR"
   ],
   "Shanghai": [
     "China",
@@ -1285,8 +1285,8 @@
     "SO"
   ],
   "South": [
-    "Cameroon",
-    "CM"
+    null,
+    null
   ],
   "South Africa": [
     "South Africa",
@@ -1297,12 +1297,12 @@
     "ZA"
   ],
   "South Asia": [
-    "Singapore",
-    "SG"
+    null,
+    null
   ],
   "South China Sea": [
-    "China",
-    "CN"
+    null,
+    null
   ],
   "South Korea": [
     "Korea, Republic of",
@@ -1317,20 +1317,20 @@
     "SS"
   ],
   "Southeast Asia": [
-    "Indonesia",
-    "ID"
+    null,
+    null
   ],
   "Spain": [
     "Spain",
     "ES"
   ],
   "Sports Stadium": [
-    "Viet Nam",
-    "VN"
+    null,
+    null
   ],
   "Spratly Islands": [
-    "Viet Nam",
-    "VN"
+    null,
+    null
   ],
   "Srinagar": [
     "India",
@@ -1353,8 +1353,8 @@
     "SE"
   ],
   "Strait of Hormuz": [
-    "Oman",
-    "OM"
+    null,
+    null
   ],
   "Sudan": [
     "Sudan",
@@ -1401,8 +1401,8 @@
     "TW"
   ],
   "Tangdhar": [
-    "Pakistan",
-    "PK"
+    "India",
+    "IN"
   ],
   "Tanzania": [
     "Tanzania, United Republic of",
@@ -1501,8 +1501,8 @@
     "US"
   ],
   "US Kadena Air Base": [
-    null,
-    null
+    "Japan",
+    "JP"
   ],
   "US Middle East": [
     "United States",
@@ -1513,8 +1513,8 @@
     "US"
   ],
   "UT": [
-    "France",
-    "FR"
+    "United States",
+    "US"
   ],
   "Uzbekistan": [
     "Uzbekistan",
@@ -1541,8 +1541,8 @@
     "IT"
   ],
   "Venus": [
-    "United States",
-    "US"
+    null,
+    null
   ],
   "Victoria": [
     "Australia",
@@ -1577,8 +1577,8 @@
     "US"
   ],
   "West": [
-    "Cameroon",
-    "CM"
+    null,
+    null
   ],
   "West Bank": [
     "Palestine, State of",
@@ -1609,8 +1609,8 @@
     "RU"
   ],
   "Yellow Sea": [
-    "China",
-    "CN"
+    null,
+    null
   ],
   "Yemen": [
     "Yemen",
