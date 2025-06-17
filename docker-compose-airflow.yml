@@ -35,6 +35,7 @@ services:
       - ./data:/opt/airflow/data
       - ./main.py:/opt/airflow/main.py
       - ./.env:/opt/airflow/.env
+      - /c/Users/balaj/.cache/huggingface:/home/airflow/.cache/huggingface
     ports:
       - "8080:8080"
     command: webserver
