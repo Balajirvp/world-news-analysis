@@ -68,6 +68,11 @@ def main():
     date_str = datetime.now().strftime("%Y-%m-%d")
     elasticsearch_date = date_str.replace("-", ".")
 
+    # Initialize comments and enriched_comments to avoid undefined variable errors
+    comments = []
+    enriched_comments = []
+    processed_comments = []
+
     # Only proceed with corresponding comments if we got posts
     if post_ids:
         comments = reddit_collector.collect_comments(post_ids)  # Remove comments_dir parameter
