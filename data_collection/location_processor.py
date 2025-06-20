@@ -33,16 +33,13 @@ class LocationProcessor:
         self.cache_dir.mkdir(exist_ok=True)
         self.location_cache_file = self.cache_dir / "location_cache.json"
         self.region_cache_file = self.cache_dir / "region_cache.json"
-        self.corrections_file = self.cache_dir / "location_corrections.json"
         
         # Load existing caches or initialize empty ones
         self.location_cache = self._load_cache(self.location_cache_file)
         self.region_cache = self._load_cache(self.region_cache_file)
-        self.corrections = self._load_cache(self.corrections_file)
         
         print(f"Loaded {len(self.location_cache)} location mappings from cache")
         print(f"Loaded {len(self.region_cache)} region mappings from cache")
-        print(f"Loaded {len(self.corrections)} manual corrections from cache")
 
         self.middle_east_countries = {
             'Israel', 'Palestine, State of', 'Iran, Islamic Republic of', 'Iraq', 
@@ -156,8 +153,7 @@ class LocationProcessor:
         """Get description for cache metadata"""
         descriptions = {
             "location_cache.json": "Maps location names to [country_name, iso_code]. Automatically generated from geocoding.",
-            "region_cache.json": "Maps 'ISO - Country Name' to geopolitical regions. Format: 'US - United States': 'North America'",
-            "location_corrections.json": "Manual corrections for wrong location mappings. Edit this file to fix errors."
+            "region_cache.json": "Maps 'ISO - Country Name' to geopolitical regions. Format: 'US - United States': 'North America'"
         }
         return descriptions.get(filename, "Cache file")
     
@@ -178,7 +174,7 @@ class LocationProcessor:
     def get_country_info(self, location: str) -> Tuple[Optional[str], Optional[str]]:
         """
         Gets the country name and ISO code for a given location.
-        Uses corrections first, then cache, then geocoding.
+        Uses cache, then direct mappings, then geocoding.
 
         Args:
             location (str): The location string to geocode.
@@ -192,13 +188,7 @@ class LocationProcessor:
 
         location = location.strip()
         
-        # 1. Check corrections first (highest priority)
-        if location in self.corrections:
-            correction = self.corrections[location]
-            if isinstance(correction, list) and len(correction) == 2:
-                return tuple(correction)
-        
-        # 2. Check cache
+        # 1. Check cache
         if location in self.location_cache:
             cached_result = self.location_cache[location]
             if isinstance(cached_result, list) and len(cached_result) == 2:
@@ -206,13 +196,13 @@ class LocationProcessor:
             elif isinstance(cached_result, tuple) and len(cached_result) == 2:
                 return cached_result
 
-        # 3. Check direct mappings
+        # 2. Check direct mappings
         if location in self.direct_mappings:
             country_name, iso_code = self.direct_mappings[location]
             self.location_cache[location] = [country_name, iso_code]
             return country_name, iso_code
 
-        # 4. Check if it's already a country name
+        # 3. Check if it's already a country name
         try:
             country = pycountry.countries.search_fuzzy(location)[0]
             result = (country.name, country.alpha_2)
@@ -221,7 +211,7 @@ class LocationProcessor:
         except:
             pass
 
-        # 5. Use geocoding
+        # 4. Use geocoding
         try:
             geocode_result = self.geocode(location, exactly_one=True, language='en')
             if geocode_result and hasattr(geocode_result, 'raw') and geocode_result.raw.get('lat') and geocode_result.raw.get('lon'):

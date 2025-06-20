@@ -35,10 +35,8 @@ class TestLocationProcessor:
             # Check that cache attributes exist
             assert hasattr(processor, 'location_cache')
             assert hasattr(processor, 'region_cache')
-            assert hasattr(processor, 'corrections')
             assert isinstance(processor.location_cache, dict)
             assert isinstance(processor.region_cache, dict)
-            assert isinstance(processor.corrections, dict)
     
     def test_load_cache_existing_file(self, processor, temp_data_dir):
         """Test loading existing cache file."""
@@ -97,15 +95,6 @@ class TestLocationProcessor:
         assert result == ("TestCountry", "TC")
         # Should not call geocoding
         processor.geocode.assert_not_called()
-    
-    def test_get_country_info_with_corrections(self, processor):
-        """Test location resolution using manual corrections."""
-        # Pre-populate corrections
-        processor.corrections["WrongName"] = ["CorrectCountry", "CC"]
-        
-        result = processor.get_country_info("WrongName")
-        
-        assert result == ("CorrectCountry", "CC")
     
     def test_get_country_info_geocoding_fallback(self, processor):
         """Test location resolution falling back to geocoding."""
