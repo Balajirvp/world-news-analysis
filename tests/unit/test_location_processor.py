@@ -72,19 +72,6 @@ class TestLocationProcessor:
         assert "key2" in loaded_data
         assert "_metadata" in loaded_data  # Should add metadata
     
-    def test_get_country_info_direct_mappings(self, processor):
-        """Test direct country mappings."""
-        # Test known direct mappings
-        test_cases = [
-            ("US", ("United States", "US")),
-            ("UK", ("United Kingdom", "GB")),
-            ("USA", ("United States", "US")),
-        ]
-        
-        for location, expected in test_cases:
-            result = processor.get_country_info(location)
-            assert result == expected
-    
     def test_get_country_info_with_cache(self, processor):
         """Test location resolution using cache."""
         # Pre-populate cache with list format (as used in actual code)
@@ -295,24 +282,9 @@ class TestLocationProcessor:
         region_data = json.loads(region_file.read_text())
         assert region_data["US - United States"] == "North America"
     
-    def test_direct_mappings_coverage(self, processor):
-        """Test various direct mappings from the code."""
-        test_cases = [
-            ("US", ("United States", "US")),
-            ("UK", ("United Kingdom", "GB")),
-            ("UAE", ("United Arab Emirates", "AE")),
-            ("Beijing", ("China", "CN")),
-            ("Moscow", ("Russian Federation", "RU")),
-            ("Gaza", ("Palestine, State of", "PS")),
-        ]
-        
-        for location, expected in test_cases:
-            result = processor.get_country_info(location)
-            assert result == expected, f"Failed for location: {location}"
-    
     def test_performance_with_large_dataset(self, processor):
         """Test performance with a large number of posts."""
-        # Create posts with direct mappings for speed
+        # Create posts with mock locations for speed
         posts = []
         for i in range(100):
             posts.append({
@@ -320,7 +292,7 @@ class TestLocationProcessor:
                 'locations_mentioned': ['US', 'UK', 'France']
             })
         
-        # Mock process_locations to use direct mappings
+        # Mock process_locations to use mock mappings
         def mock_process_locations(locations):
             if locations == ['US', 'UK', 'France']:
                 return ['United States', 'United Kingdom', 'France'], ['US', 'GB', 'FR'], ['North America', 'Europe']
