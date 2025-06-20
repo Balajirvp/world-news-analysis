@@ -1,12 +1,7 @@
 import re
-import json
-import pandas as pd
-from pathlib import Path
 from urllib.parse import urlparse
-from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
-import os
+from transformers import pipeline
 from dotenv import load_dotenv
-import concurrent.futures
 import torch
 
 load_dotenv()

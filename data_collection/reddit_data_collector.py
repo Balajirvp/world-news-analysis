@@ -1,8 +1,4 @@
-import os
-import json
 import praw
-from datetime import datetime
-from pathlib import Path
 
 class RedditDataCollector:
     def __init__(self, reddit_credentials):
