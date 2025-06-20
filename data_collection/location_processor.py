@@ -47,73 +47,6 @@ class LocationProcessor:
             'United Arab Emirates', 'Qatar', 'Kuwait', 'Bahrain', 'Oman',
             'Turkey', 'Afghanistan', 'Cyprus'
         }
-        
-        self.direct_mappings = {
-            # Standard abbreviations
-            'US': ('United States', 'US'),
-            'UK': ('United Kingdom', 'GB'),
-            'USA': ('United States', 'US'),
-            'UAE': ('United Arab Emirates', 'AE'),
-            'PRC': ('China', 'CN'),
-            
-            # Regional/Political designations
-            'ROC': ('Taiwan, Province of China', 'TW'),
-            'DR': ('Dominican Republic', 'DO'),
-            'N Korea': ("Korea, Democratic People's Republic of", 'KP'),
-            'S Korea': ('Korea, Republic of', 'KR'),
-            'Korea': ('Korea, Republic of', 'KR'),
-            
-            # Alternative country names
-            'Britain': ('United Kingdom', 'GB'),
-            'England': ('United Kingdom', 'GB'),
-            'Scotland': ('United Kingdom', 'GB'),
-            'America': ('United States', 'US'),
-            
-            # Major cities mapped to countries
-            'Kyiv': ('Ukraine', 'UA'),
-            'Moscow': ('Russian Federation', 'RU'),
-            'Kremlin': ('Russian Federation', 'RU'),
-            'Beijing': ('China', 'CN'),
-            'Istanbul': ('Turkey', 'TR'),
-            'Rome': ('Italy', 'IT'),
-            'Washington': ('United States', 'US'),
-            'Berlin': ('Germany', 'DE'),
-            'Vancouver': ('Canada', 'CA'),
-            'White House': ('United States', 'US'),
-            'Geneva': ('Switzerland', 'CH'),
-            'London': ('United Kingdom', 'GB'),
-            'Paris': ('France', 'FR'),
-            'Brussels': ('Belgium', 'BE'),
-            'Tehran': ('Iran, Islamic Republic of', 'IR'),
-            'Warsaw': ('Poland', 'PL'),
-            'Damascus': ('Syrian Arab Republic', 'SY'),
-            'Mexico City': ('Mexico', 'MX'),
-            'New York': ('United States', 'US'),
-            'New Delhi': ('India', 'IN'),
-            'Mumbai': ('India', 'IN'),
-            'Lahore': ('Pakistan', 'PK'),
-            'Jerusalem': ('Israel', 'IL'),
-            'Tel Aviv': ('Israel', 'IL'),
-            
-            # Regions/Territories
-            'Hong Kong': ('China', 'CN'),
-            'Vatican': ('Holy See (Vatican City State)', 'VA'),
-            'Alberta': ('Canada', 'CA'),
-            'Ontario': ('Canada', 'CA'),
-            'Kursk': ('Russian Federation', 'RU'),
-            'Kursk Oblast': ('Russian Federation', 'RU'),
-            'Crimea': ('Ukraine', 'UA'),
-            
-            # Disputed/Special territories
-            'Gaza': ('Palestine, State of', 'PS'),
-            'West Bank': ('Palestine, State of', 'PS'),
-            'Kashmir': ('India', 'IN'),
-            'LoC': ('India', 'IN'),  # Line of Control
-            'Jammu': ('India', 'IN'),
-            
-            # Geographic features
-            'South China Sea': ('China', 'CN'),
-        }
 
     def _load_cache(self, cache_file: Path) -> dict:
         """Load cache from JSON file, return empty dict if file doesn't exist"""
@@ -174,7 +107,7 @@ class LocationProcessor:
     def get_country_info(self, location: str) -> Tuple[Optional[str], Optional[str]]:
         """
         Gets the country name and ISO code for a given location.
-        Uses cache, then direct mappings, then geocoding.
+        Uses cache, then geocoding.
 
         Args:
             location (str): The location string to geocode.
@@ -196,13 +129,7 @@ class LocationProcessor:
             elif isinstance(cached_result, tuple) and len(cached_result) == 2:
                 return cached_result
 
-        # 2. Check direct mappings
-        if location in self.direct_mappings:
-            country_name, iso_code = self.direct_mappings[location]
-            self.location_cache[location] = [country_name, iso_code]
-            return country_name, iso_code
-
-        # 3. Check if it's already a country name
+        # 2. Check if it's already a country name
         try:
             country = pycountry.countries.search_fuzzy(location)[0]
             result = (country.name, country.alpha_2)
@@ -211,7 +138,7 @@ class LocationProcessor:
         except:
             pass
 
-        # 4. Use geocoding
+        # 3. Use geocoding
         try:
             geocode_result = self.geocode(location, exactly_one=True, language='en')
             if geocode_result and hasattr(geocode_result, 'raw') and geocode_result.raw.get('lat') and geocode_result.raw.get('lon'):
