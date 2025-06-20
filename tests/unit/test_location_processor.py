@@ -2,11 +2,9 @@
 Unit tests for LocationProcessor class.
 """
 import pytest
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock, patch
 import json
-from pathlib import Path
 from data_collection.location_processor import LocationProcessor
-from tests.fixtures.mock_responses import MockResponses
 
 
 class TestLocationProcessor:

@@ -2,9 +2,8 @@
 Unit tests for ElasticsearchClient class.
 """
 import pytest
-from unittest.mock import Mock, patch, mock_open
+from unittest.mock import Mock, patch
 import json
-from pathlib import Path
 from data_collection.elasticsearch_client import ElasticsearchClient
 from tests.fixtures.mock_responses import MockResponses
 

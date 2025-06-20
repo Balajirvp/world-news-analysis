@@ -2,10 +2,8 @@
 Unit tests for RedditDataCollector class.
 """
 import pytest
-from unittest.mock import Mock, patch, MagicMock
-import praw
+from unittest.mock import Mock, patch
 from data_collection.reddit_data_collector import RedditDataCollector
-from tests.fixtures.mock_responses import MockResponses
 
 
 class TestRedditDataCollector:

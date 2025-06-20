@@ -3,9 +3,7 @@ Integration tests for the main pipeline.
 """
 import pytest
 from unittest.mock import Mock, patch, mock_open
-import json
 import os
-from pathlib import Path
 
 # Import main module
 import main

@@ -2,11 +2,9 @@
 Unit tests for WikipediaPersonProcessor class.
 """
 import pytest
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock, patch
 import json
-from pathlib import Path
 from data_collection.person_name_mapper import WikipediaPersonProcessor
-from tests.fixtures.mock_responses import MockResponses
 
 
 class TestWikipediaPersonProcessor:
