@@ -8,12 +8,12 @@ analysis/
 *.ndjson
 *.txt
 .coverage
+data/wikipedia_categories_cache.json
+data/wikipedia_search_cache.json
 
 # Python
 *.ipynb
 *.ipynb_checkpoints
-venv/
-notebook_venv/
 notebook_venv_3.11/
 __pycache__/
 

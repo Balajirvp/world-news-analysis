@@ -1,7 +1,7 @@
 {
   "_metadata": {
-    "last_updated": "2025-06-17T22:47:12.909927",
-    "total_entries": 406,
+    "last_updated": "2025-06-20T22:27:59.520892",
+    "total_entries": 511,
     "description": "Maps location names to [country_name, iso_code]. Automatically generated from geocoding."
   },
   "Abu Dhabi": [
@@ -60,6 +60,10 @@
     "Antarctica",
     "AQ"
   ],
+  "Arak": [
+    "Iran, Islamic Republic of",
+    "IR"
+  ],
   "Arctic": [
     null,
     null
@@ -71,6 +75,10 @@
   "Armenia": [
     "Armenia",
     "AM"
+  ],
+  "Arunachal Pradesh": [
+    "India",
+    "IN"
   ],
   "As - Suweida": [
     "Syrian Arab Republic",
@@ -100,9 +108,17 @@
     "Australia",
     "AU"
   ],
+  "Austria": [
+    "Austria",
+    "AT"
+  ],
   "Azerbaijan": [
     "Azerbaijan",
     "AZ"
+  ],
+  "Baghdad": [
+    "Iraq",
+    "IQ"
   ],
   "Baglihar Dam": [
     "India",
@@ -111,6 +127,10 @@
   "Bahawalpur": [
     "Pakistan",
     "PK"
+  ],
+  "Bali": [
+    "Indonesia",
+    "ID"
   ],
   "Ballymena": [
     "United Kingdom",
@@ -132,6 +152,10 @@
     "Iran, Islamic Republic of",
     "IR"
   ],
+  "Banff": [
+    "Canada",
+    "CA"
+  ],
   "Bangkok": [
     "Thailand",
     "TH"
@@ -144,6 +168,10 @@
     "Spain",
     "ES"
   ],
+  "Bastar": [
+    "India",
+    "IN"
+  ],
   "Bat Yam": [
     "Israel",
     "IL"
@@ -152,9 +180,17 @@
     "India",
     "IN"
   ],
+  "Bay of Bengal": [
+    "India",
+    "IN"
+  ],
   "BC": [
     "Canada",
     "CA"
+  ],
+  "Beer Sheva": [
+    "Israel",
+    "IL"
   ],
   "Beijing": [
     "China",
@@ -180,9 +216,17 @@
     "Israel",
     "IL"
   ],
+  "Ben Gurion Airport": [
+    "Israel",
+    "IL"
+  ],
   "Berlin": [
     "Germany",
     "DE"
+  ],
+  "Biafra": [
+    "Kenya",
+    "KE"
   ],
   "Black Sea": [
     null,
@@ -280,9 +324,17 @@
     "Panama",
     "PA"
   ],
+  "Canda": [
+    "Italy",
+    "IT"
+  ],
   "Caribbean": [
     null,
     null
+  ],
+  "Cayman Islands": [
+    "Cayman Islands",
+    "KY"
   ],
   "Central Asia": [
     null,
@@ -303,6 +355,10 @@
   "Chechen Republic": [
     "Russian Federation",
     "RU"
+  ],
+  "Chenab": [
+    "Pakistan",
+    "PK"
   ],
   "Chhattisgarh": [
     "India",
@@ -332,6 +388,10 @@
     "Congo",
     "CG"
   ],
+  "Cook Islands": [
+    "Cook Islands",
+    "CK"
+  ],
   "Copacabana": [
     "Brazil",
     "BR"
@@ -340,9 +400,17 @@
     "Costa Rica",
     "CR"
   ],
+  "Cotroceni Palace": [
+    null,
+    null
+  ],
   "Cracov": [
     "Poland",
     "PL"
+  ],
+  "Crete": [
+    "Greece",
+    "GR"
   ],
   "Crimea": [
     "Ukraine",
@@ -368,9 +436,21 @@
     "Czechia",
     "CZ"
   ],
+  "Côte d ' Ivoire": [
+    "Côte d'Ivoire",
+    "CI"
+  ],
+  "Dahiyeh": [
+    null,
+    null
+  ],
   "Damascus": [
     "Syrian Arab Republic",
     "SY"
+  ],
+  "DC": [
+    "United Kingdom",
+    "GB"
   ],
   "Delhi": [
     "India",
@@ -384,6 +464,10 @@
     "Ukraine",
     "UA"
   ],
+  "Doha": [
+    "Qatar",
+    "QA"
+  ],
   "Dominican Republic": [
     "Dominican Republic",
     "DO"
@@ -396,7 +480,23 @@
     "Congo, The Democratic Republic of the",
     "CD"
   ],
+  "Dubai Marina Tower": [
+    "United Arab Emirates",
+    "AE"
+  ],
+  "Dublin": [
+    "Ireland",
+    "IE"
+  ],
+  "Dukovany": [
+    "Czechia",
+    "CZ"
+  ],
   "Earth": [
+    null,
+    null
+  ],
+  "East": [
     null,
     null
   ],
@@ -456,9 +556,29 @@
     "Canada",
     "CA"
   ],
+  "European Hospital": [
+    "Holy See (Vatican City State)",
+    "VA"
+  ],
+  "Far East": [
+    null,
+    null
+  ],
+  "Far East Russia": [
+    "Russian Federation",
+    "RU"
+  ],
   "Finland": [
     "Finland",
     "FI"
+  ],
+  "Forbidden Zone": [
+    null,
+    null
+  ],
+  "Fordo": [
+    "Iran, Islamic Republic of",
+    "IR"
   ],
   "Fordow": [
     "Iran, Islamic Republic of",
@@ -467,6 +587,10 @@
   "France": [
     "France",
     "FR"
+  ],
+  "Fukuoka": [
+    "Japan",
+    "JP"
   ],
   "Gabon": [
     "Gabon",
@@ -492,6 +616,10 @@
     "Germany",
     "DE"
   ],
+  "Germany US": [
+    "Germany",
+    "DE"
+  ],
   "Ghana": [
     "Ghana",
     "GH"
@@ -499,6 +627,10 @@
   "Gibraltar": [
     "Gibraltar",
     "GI"
+  ],
+  "Golden Triangle": [
+    null,
+    null
   ],
   "Great Yarmouth": [
     "United Kingdom",
@@ -564,6 +696,10 @@
     "Cuba",
     "CU"
   ],
+  "Heathrow Airport": [
+    "United Kingdom",
+    "GB"
+  ],
   "HK": [
     "Hong Kong",
     "HK"
@@ -576,6 +712,10 @@
     "Japan",
     "JP"
   ],
+  "Holyrood": [
+    "United States",
+    "US"
+  ],
   "Honduras": [
     "Honduras",
     "HN"
@@ -583,6 +723,10 @@
   "Hong Kong": [
     "Hong Kong",
     "HK"
+  ],
+  "Hormuz Strait": [
+    null,
+    null
   ],
   "Hudson Bay": [
     null,
@@ -616,6 +760,14 @@
     "Indonesia",
     "ID"
   ],
+  "International Border": [
+    null,
+    null
+  ],
+  "Irakleion": [
+    "Greece",
+    "GR"
+  ],
   "Iran": [
     "Iran, Islamic Republic of",
     "IR"
@@ -633,6 +785,10 @@
     "IL"
   ],
   "Israel Gulf": [
+    "Israel",
+    "IL"
+  ],
+  "Israel Iran": [
     "Israel",
     "IL"
   ],
@@ -676,6 +832,10 @@
     "Jordan",
     "JO"
   ],
+  "Kabul": [
+    "Afghanistan",
+    "AF"
+  ],
   "Kakhovka Dam": [
     "Ukraine",
     "UA"
@@ -684,9 +844,17 @@
     "Canada",
     "CA"
   ],
+  "Karachi": [
+    "Pakistan",
+    "PK"
+  ],
   "Karnataka": [
     "India",
     "IN"
+  ],
+  "Karregutta": [
+    null,
+    null
   ],
   "Kashmir": [
     "India",
@@ -716,6 +884,10 @@
     "Ukraine",
     "UA"
   ],
+  "Khartoum": [
+    "Sudan",
+    "SD"
+  ],
   "Kherson": [
     "Ukraine",
     "UA"
@@ -740,13 +912,25 @@
     "Kosovo",
     "XK"
   ],
+  "Kostiantynivka Ukraine": [
+    "Ukraine",
+    "UA"
+  ],
   "Kotli": [
     "Pakistan",
     "PK"
   ],
+  "KP": [
+    "Korea, Democratic People's Republic of",
+    "KP"
+  ],
   "Krakow": [
     "Poland",
     "PL"
+  ],
+  "Krasnodar Krai": [
+    "Russian Federation",
+    "RU"
   ],
   "Kremlin": [
     "Russian Federation",
@@ -764,6 +948,14 @@
     "Russian Federation",
     "RU"
   ],
+  "Kutch": [
+    "India",
+    "IN"
+  ],
+  "Kuwait": [
+    "Kuwait",
+    "KW"
+  ],
   "Kyiv": [
     "Ukraine",
     "UA"
@@ -775,6 +967,14 @@
   "Kyrgyzstan": [
     "Kyrgyzstan",
     "KG"
+  ],
+  "Labrador": [
+    "Canada",
+    "CA"
+  ],
+  "Lahore": [
+    "Pakistan",
+    "PK"
   ],
   "Larnaca": [
     "Cyprus",
@@ -792,6 +992,10 @@
     "Switzerland",
     "CH"
   ],
+  "Lebannon": [
+    "Lebanon",
+    "LB"
+  ],
   "Lebanon": [
     "Lebanon",
     "LB"
@@ -800,9 +1004,17 @@
     "India",
     "IN"
   ],
+  "Lewotobi": [
+    "Indonesia",
+    "ID"
+  ],
   "Libya": [
     "Libya",
     "LY"
+  ],
+  "Libya Russia": [
+    "Russian Federation",
+    "RU"
   ],
   "Lithuania": [
     "Lithuania",
@@ -816,6 +1028,10 @@
     "United Kingdom",
     "GB"
   ],
+  "Lutsk": [
+    "Ukraine",
+    "UA"
+  ],
   "Luxembourg": [
     "Luxembourg",
     "LU"
@@ -823,6 +1039,10 @@
   "Madrid": [
     "Spain",
     "ES"
+  ],
+  "Magallanes Region": [
+    "Chile",
+    "CL"
   ],
   "Maharashtra": [
     "India",
@@ -840,6 +1060,10 @@
     "Malta",
     "MT"
   ],
+  "Manipur": [
+    "India",
+    "IN"
+  ],
   "Manitoba": [
     "Canada",
     "CA"
@@ -856,9 +1080,17 @@
     "Mauritius",
     "MU"
   ],
+  "Mecca": [
+    "Saudi Arabia",
+    "SA"
+  ],
   "Mediterranean": [
     null,
     null
+  ],
+  "Mehrabad": [
+    "Iran, Islamic Republic of",
+    "IR"
   ],
   "Melbourne": [
     "Australia",
@@ -876,6 +1108,10 @@
     "Mexico",
     "MX"
   ],
+  "Middle": [
+    null,
+    null
+  ],
   "Middle East": [
     null,
     null
@@ -888,6 +1124,18 @@
     "Libya",
     "LY"
   ],
+  "Mogadishu": [
+    "Somalia",
+    "SO"
+  ],
+  "Mokwa": [
+    "Nigeria",
+    "NG"
+  ],
+  "Moldova": [
+    "Moldova, Republic of",
+    "MD"
+  ],
   "Mongolia": [
     "Mongolia",
     "MN"
@@ -895,6 +1143,10 @@
   "Montenegro": [
     "Montenegro",
     "ME"
+  ],
+  "Montreal": [
+    "Canada",
+    "CA"
   ],
   "Moon": [
     null,
@@ -907,6 +1159,10 @@
   "Moscow": [
     "Russian Federation",
     "RU"
+  ],
+  "Mozambique": [
+    "Mozambique",
+    "MZ"
   ],
   "Murmansk": [
     "Russian Federation",
@@ -972,9 +1228,17 @@
     "France",
     "FR"
   ],
+  "Niger": [
+    "Niger",
+    "NE"
+  ],
   "Nigeria": [
     "Nigeria",
     "NG"
+  ],
+  "Nile": [
+    null,
+    null
   ],
   "North": [
     null,
@@ -987,6 +1251,10 @@
   "North Darfur": [
     "Sudan",
     "SD"
+  ],
+  "North Gaza": [
+    "Palestine, State of",
+    "PS"
   ],
   "North Korea": [
     "Korea, Democratic People's Republic of",
@@ -1044,6 +1312,10 @@
     "Canada",
     "CA"
   ],
+  "PA": [
+    "Panama",
+    "PA"
+  ],
   "Pacific": [
     null,
     null
@@ -1053,6 +1325,10 @@
     "PK"
   ],
   "Pakistan": [
+    "Pakistan",
+    "PK"
+  ],
+  "Pakistani Kashmir": [
     "Pakistan",
     "PK"
   ],
@@ -1088,9 +1364,21 @@
     "Canada",
     "CA"
   ],
+  "Peleș": [
+    "Romania",
+    "RO"
+  ],
+  "Pelișor": [
+    "Romania",
+    "RO"
+  ],
   "Peru": [
     "Peru",
     "PE"
+  ],
+  "Philippine Sea": [
+    null,
+    null
   ],
   "Philippines": [
     "Philippines",
@@ -1128,6 +1416,10 @@
     "Czechia",
     "CZ"
   ],
+  "Pripyat": [
+    "Ukraine",
+    "UA"
+  ],
   "Punjab": [
     "India",
     "IN"
@@ -1139,6 +1431,14 @@
   "Qatar": [
     "Qatar",
     "QA"
+  ],
+  "Quebec": [
+    "Canada",
+    "CA"
+  ],
+  "Queensland": [
+    "Australia",
+    "AU"
   ],
   "Quetta": [
     "Pakistan",
@@ -1156,9 +1456,29 @@
     "Palestine, State of",
     "PS"
   ],
+  "Red Deer": [
+    "Canada",
+    "CA"
+  ],
   "Red Sea": [
     null,
     null
+  ],
+  "Red Square": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Reef": [
+    "United States Minor Outlying Islands",
+    "UM"
+  ],
+  "Rio de Janeiro": [
+    "Brazil",
+    "BR"
+  ],
+  "Riyadh": [
+    "Saudi Arabia",
+    "SA"
   ],
   "Romania": [
     "Romania",
@@ -1175,6 +1495,14 @@
   "Russia": [
     "Russian Federation",
     "RU"
+  ],
+  "Russia China": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Russia Ukraine": [
+    "Ukraine",
+    "UA"
   ],
   "Russia Vietnam": [
     "Russian Federation",
@@ -1199,6 +1527,10 @@
   "Saana International Airport": [
     "Yemen",
     "YE"
+  ],
+  "Sabha": [
+    "Libya",
+    "LY"
   ],
   "Sahel": [
     null,
@@ -1236,6 +1568,10 @@
     "United Kingdom",
     "GB"
   ],
+  "SE Asia": [
+    null,
+    null
+  ],
   "Seoul": [
     "Korea, Republic of",
     "KR"
@@ -1267,6 +1603,22 @@
   "Shiraz": [
     "Iran, Islamic Republic of",
     "IR"
+  ],
+  "Shorkot Air": [
+    null,
+    null
+  ],
+  "Siberia": [
+    "Italy",
+    "IT"
+  ],
+  "Sinai": [
+    "Israel",
+    "IL"
+  ],
+  "Sindh": [
+    "Pakistan",
+    "PK"
   ],
   "Singapore": [
     "Singapore",
@@ -1356,6 +1708,10 @@
     null,
     null
   ],
+  "Stuttgart": [
+    "Germany",
+    "DE"
+  ],
   "Sudan": [
     "Sudan",
     "SD"
@@ -1375,6 +1731,10 @@
   "Surab": [
     "Pakistan",
     "PK"
+  ],
+  "Suriname": [
+    "Suriname",
+    "SR"
   ],
   "Sweden": [
     "Sweden",
@@ -1400,6 +1760,18 @@
     "Taiwan, Province of China",
     "TW"
   ],
+  "Taiwan Strait": [
+    null,
+    null
+  ],
+  "Tambov Oblast": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Tamil Nadu": [
+    "India",
+    "IN"
+  ],
   "Tangdhar": [
     "India",
     "IN"
@@ -1408,13 +1780,25 @@
     "Tanzania, United Republic of",
     "TZ"
   ],
+  "Tatarstan": [
+    "Russian Federation",
+    "RU"
+  ],
   "Tehran": [
     "Iran, Islamic Republic of",
     "IR"
   ],
+  "Tehran Israel": [
+    "Israel",
+    "IL"
+  ],
   "Tel Aviv": [
     "Israel",
     "IL"
+  ],
+  "Ternopil": [
+    "Ukraine",
+    "UA"
   ],
   "Terrebonne": [
     "United States",
@@ -1435,6 +1819,10 @@
   "Tibet": [
     "China",
     "CN"
+  ],
+  "Timbuktu": [
+    "Mali",
+    "ML"
   ],
   "Tobago": [
     "Trinidad and Tobago",
@@ -1464,6 +1852,14 @@
     "Türkiye",
     "TR"
   ],
+  "Turkiye": [
+    "Türkiye",
+    "TR"
+  ],
+  "Turkmenistan": [
+    "Turkmenistan",
+    "TM"
+  ],
   "UAE": [
     "United Arab Emirates",
     "AE"
@@ -1477,6 +1873,10 @@
     "GB"
   ],
   "Ukraine": [
+    "Ukraine",
+    "UA"
+  ],
+  "Ukraine Russia": [
     "Ukraine",
     "UA"
   ],
@@ -1496,7 +1896,15 @@
     "Sweden",
     "SE"
   ],
+  "Uruguay": [
+    "Uruguay",
+    "UY"
+  ],
   "US": [
+    "United States",
+    "US"
+  ],
+  "US Gaza": [
     "United States",
     "US"
   ],
@@ -1592,9 +2000,17 @@
     "Indonesia",
     "ID"
   ],
+  "West PH Sea": [
+    "Philippines",
+    "PH"
+  ],
   "Western Australia": [
     "Australia",
     "AU"
+  ],
+  "Western Sahara": [
+    "Western Sahara",
+    "EH"
   ],
   "White House": [
     "United States",
@@ -1627,5 +2043,9 @@
   "Zhytomyr": [
     "Ukraine",
     "UA"
+  ],
+  "Zimbabwe": [
+    "Zimbabwe",
+    "ZW"
   ]
 }
