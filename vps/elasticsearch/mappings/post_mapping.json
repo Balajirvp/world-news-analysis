@@ -1,0 +1,171 @@
+{
+  "mappings": {
+    "properties": {
+      "post_id": { "type": "keyword" },
+      "title": { 
+        "type": "text",
+        "fields": {
+          "raw": { "type": "keyword" },
+          "search": { "type": "text", "analyzer": "folding" }
+        }
+      },
+      "author": { "type": "keyword" },
+      "created_utc": { 
+        "type": "date", 
+        "format": "epoch_second",
+        "fields": {
+          "year": {
+            "type": "date",
+            "format": "epoch_second"
+          }
+        }
+      },
+      "url": { "type": "keyword" },
+      "num_comments": { 
+        "type": "integer",
+        "fields": {
+          "normalized": {
+            "type": "scaled_float",
+            "scaling_factor": 100
+          }
+        }
+      },
+      "score": { 
+        "type": "integer",
+        "fields": {
+          "normalized": {
+            "type": "scaled_float",
+            "scaling_factor": 100
+          }
+        }
+      },
+      "description": { 
+        "type": "text",
+        "fields": {
+          "raw": { "type": "keyword" },
+          "search": { "type": "text", "analyzer": "folding" }
+        }
+      },
+      "upvote_ratio": { "type": "float" },
+      "post_flair": { "type": "keyword" },
+      "domain": { "type": "keyword" },
+      "sentiment_score": { "type": "float" },
+      "sentiment_category": { 
+        "type": "keyword",
+        "null_value": "neutral"
+      },
+      "persons_mentioned": { 
+        "type": "keyword",
+        "fields": {
+          "raw": { "type": "keyword" },
+          "search": { "type": "text", "analyzer": "folding" }
+        },
+        "eager_global_ordinals": true
+      },
+      "locations_mentioned": { 
+        "type": "keyword",
+        "fields": {
+          "raw": { "type": "keyword" },
+          "search": { "type": "text", "analyzer": "folding" }
+        },
+        "eager_global_ordinals": true
+      },
+      "organizations_mentioned": { 
+        "type": "keyword",
+        "fields": {
+          "raw": { "type": "keyword" },
+          "search": { "type": "text", "analyzer": "folding" }
+        },
+        "eager_global_ordinals": true
+      },
+      "misc_entities_mentioned": { 
+        "type": "keyword",
+        "fields": {
+          "raw": { "type": "keyword" },
+          "search": { "type": "text", "analyzer": "folding" }
+        },
+        "eager_global_ordinals": true
+      },
+      "regions_mentioned": { 
+        "type": "keyword",
+        "fields": {
+          "raw": { "type": "keyword" },
+          "search": { "type": "text", "analyzer": "folding" }
+        },
+        "eager_global_ordinals": true
+      },
+      "locations_mentioned_updated": {
+        "type": "keyword",
+        "fields": {
+          "raw": {"type": "keyword"},
+          "search": {"type": "text", "analyzer": "folding"}
+        },
+        "eager_global_ordinals": true
+      },
+      "locations_mentioned_iso_code": {
+        "type": "keyword",
+        "eager_global_ordinals": true
+      },
+      "persons_mentioned_updated": {
+        "type": "keyword",
+        "fields": {
+          "raw": {"type": "keyword"},
+          "search": {"type": "text", "analyzer": "folding"}
+        },
+        "eager_global_ordinals": true
+      },
+      "collection_date": { "type": "date" },
+      "comment_count": { "type": "integer" },
+      "top_comment": {
+        "properties": {
+          "comment_id": { "type": "keyword" },
+          "post_id": { "type": "keyword" },
+          "body": { "type": "text" },
+          "author": { "type": "keyword" },
+          "created_utc": { "type": "date", "format": "epoch_second" },
+          "parent_id": { "type": "keyword" },
+          "score": { "type": "integer" },
+          "sentiment_score": { "type": "float" },
+          "sentiment_category": { "type": "keyword" },
+          "time_from_post_in_minutes": { "type": "float" },
+          "time_from_post_in_hours": { "type": "float" },
+          "time_bucket": { "type": "keyword" },
+          "post_sentiment": { "type": "float" },
+          "post_score": { "type": "integer" },
+          "post_comment_count": { "type": "integer" },
+          "comment_depth": { "type": "integer" },
+          "is_top_level": { "type": "boolean" }
+        }
+      },
+      "time_to_first_comment_min": { "type": "float" },
+      "discussion_duration_min": { "type": "float" },
+      "comments_0_1h": { "type": "integer" },
+      "comments_1_2h": { "type": "integer" },
+      "comments_2_3h": { "type": "integer" },
+      "comments_3_4h": { "type": "integer" },
+      "comments_4_5h": { "type": "integer" },
+      "comments_5_6h": { "type": "integer" },
+      "comments_6_12h": { "type": "integer" },
+      "comments_12_24h": { "type": "integer" },
+      "comments_24h_plus": { "type": "integer" },
+      "unique_commenters": { "type": "integer" },
+      "avg_comment_sentiment": { "type": "float" },
+      "max_comment_depth": { "type": "integer" },
+      "avg_comment_depth": { "type": "float" }
+    }
+  },
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "folding": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding"
+          ]
+        }
+      }
+    }
+  }
+}

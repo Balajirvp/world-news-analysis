@@ -1,0 +1,34 @@
+# Update your kibana/config/kibana.yml
+
+# Basic Kibana configuration
+server.host: "0.0.0.0"
+server.port: 5601
+server.name: "Reddit WorldNews Analytics"
+server.publicBaseUrl: "https://reddit-worldnews.duckdns.org"
+
+# Elasticsearch connection
+elasticsearch.hosts: ["http://elasticsearch:9200"]
+elasticsearch.username: "kibana_system"
+elasticsearch.password: "kibana_reddit"
+
+# Anonymous authentication for public dashboard
+xpack.security.authc.providers:
+  anonymous.anonymous1:
+    order: 0
+    credentials:
+      username: "dashboard_viewer"
+      password: "dashboard_password"
+  basic.basic1:
+    order: 1
+
+# Allow embedding for your iframe
+server.securityResponseHeaders.disableEmbedding: false
+server.cors.enabled: true
+server.cors.allowOrigin: ["https://reddit-worldnews.duckdns.org"]
+
+# Logging
+logging.appenders.default:
+  type: console
+  layout:
+    type: pattern
+logging.root.level: info
