@@ -30,3 +30,7 @@ airflow/plugins/
 
 # Logs
 logs/
+
+# VPS specific
+vps/ssl/
+vps/VPS Code.txt
