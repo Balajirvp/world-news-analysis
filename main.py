@@ -104,7 +104,7 @@ def main():
     print("\n--- STEP 9: LOADING DATA INTO ELASTICSEARCH ---")
 
     # Initialize Elasticsearch client
-    es_client = ElasticsearchClient(host="elasticsearch", port=9200, scheme="http")
+    es_client = ElasticsearchClient() 
     
     # Check connection
     if not es_client.is_connected():
