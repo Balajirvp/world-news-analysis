@@ -1,9 +1,9 @@
 #!/bin/bash
 # run-and-shutdown.sh - Start containers, wait for DAG to complete, then shut down
 
-echo "=== Running Reddit WorldNews Analytics Pipeline ==="
+echo "=== Running Reddit WorldNews Analytics Pipeline (Production Mode) ==="
 
-# Start all services using your existing script
+# Start services in production mode (only Airflow, no local Elasticsearch/Kibana)
 ./start-pipeline.sh redditworldnewspipeline
 
 # Wait for Airflow webserver to be fully available
@@ -40,9 +40,11 @@ while true; do
   # Check the state of the DAG run
   if [ "$state" = "running" ]; then
     echo "DAG run $run_id is still RUNNING ⏳ ($elapsed seconds elapsed)"
+    echo "📊 Data will be indexed directly to VPS Elasticsearch"
     sleep 30
   elif [ "$state" = "success" ]; then
     echo "DAG run $run_id finished SUCCESSFULLY ✅"
+    echo "🎉 Data has been indexed to VPS - check dashboard: https://reddit-worldnews.duckdns.org"
     break
   else
     echo "DAG run $run_id status UNKNOWN ❓($elapsed seconds elapsed)"
@@ -54,4 +56,5 @@ done
 echo "Shutting down all containers..."
 ./stop-pipeline.sh
 
-echo "=== Pipeline run complete ==="
+echo "=== Production Pipeline run complete ==="
+echo "📊 Check your dashboard: https://reddit-worldnews.duckdns.org"
