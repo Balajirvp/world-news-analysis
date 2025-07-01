@@ -142,7 +142,7 @@
 	    <iframe 
 	        id="dashboardFrame"
 	        class="dashboard-frame"
-	        src="/app/dashboards#/view/55dc2070-4646-11f0-9fee-331afea5ea4e?embed=true&_g=(filters:!(),refreshInterval:(pause:!f,value:30000),time:(from:now-30d,to:now))&_a=(description:'',filters:!(),fullScreenMode:!t,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!t,viewMode:view)"
+	        src="/app/dashboards#/view/55dc2070-4646-11f0-9fee-331afea5ea4e?embed=true&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-30d,to:now))&_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!t,viewMode:view)&show-time-filter=true"
 	        title="Reddit WorldNews Analytics Dashboard"
 	        sandbox="allow-scripts allow-same-origin">
 	    </iframe>
@@ -162,6 +162,15 @@
         // Update last refresh timestamp
         function updateLastRefresh() {
             const now = new Date();
+            const today6PM = new Date();
+            today6PM.setUTCHours(18, 0, 0, 0); // Today 6 PM UTC
+            
+            // If current time is before today's 6 PM UTC, show yesterday
+            // If current time is after today's 6 PM UTC, show today
+            const lastUpdate = now < today6PM ? 
+                new Date(today6PM.getTime() - 24 * 60 * 60 * 1000) : // Yesterday
+                today6PM; // Today
+            
             const options = { 
                 year: 'numeric', 
                 month: 'short', 
@@ -170,7 +179,9 @@
                 minute: '2-digit',
                 timeZoneName: 'short'
             };
-            document.getElementById('lastRefresh').textContent = now.toLocaleDateString('en-US', options);
+            
+            document.getElementById('lastRefresh').textContent = 
+                `${lastUpdate.toLocaleDateString('en-US', options)} (Daily at 6 PM UTC)`;
         }
         
         // Update on page load
