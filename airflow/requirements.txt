@@ -1,0 +1,11 @@
+praw==7.8.1
+pandas==2.2.3
+python-dotenv==1.1.0
+elasticsearch==8.9.0
+transformers==4.51.3
+geopy==2.4.1
+reverse_geocoder==1.5.1
+pycountry==24.6.1
+pycountry-convert==0.7.2
+scikit-learn==1.6.1
+sentence-transformers==4.1.0

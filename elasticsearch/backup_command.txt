@@ -1,0 +1,7 @@
+# One-liner backup
+curl -X POST "localhost:5601/api/saved_objects/_export" -H "Content-Type: application/json" -H "kbn-xsrf: true" -d '{"type": ["dashboard", "visualization", "index-pattern"]}' > backups/kibana/kibana_backup_$(date +%Y%m%d).ndjson && echo "✅ Dashboard backup created"
+
+# Importing it back
+curl -X POST "localhost:5601/api/saved_objects/_import" \
+    -H "kbn-xsrf: true" \
+    --form file=@kibana_backup_20250621.ndjson

@@ -1,0 +1,32 @@
+# Environment and secrets
+.env
+
+# Docs
+*.csv
+*.pdf
+analysis/
+*.ndjson
+*.txt
+.coverage
+data/wikipedia_categories_cache.json
+data/wikipedia_search_cache.json
+
+# Python
+*.ipynb
+*.ipynb_checkpoints
+notebook_venv_3.11/
+__pycache__/
+
+# Airflow initialization marker
+.airflow_initialized
+
+# Data files
+data/posts/
+data/comments/
+
+# Airflow logs
+airflow/logs/
+airflow/plugins/
+
+# Logs
+logs/

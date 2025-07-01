@@ -1,0 +1,2051 @@
+{
+  "_metadata": {
+    "last_updated": "2025-06-20T22:27:59.520892",
+    "total_entries": 511,
+    "description": "Maps location names to [country_name, iso_code]. Automatically generated from geocoding."
+  },
+  "Abu Dhabi": [
+    "United Arab Emirates",
+    "AE"
+  ],
+  "Adampur Airbase": [
+    "India",
+    "IN"
+  ],
+  "Afghanistan": [
+    "Afghanistan",
+    "AF"
+  ],
+  "Afghanistan Kabul": [
+    "Afghanistan",
+    "AF"
+  ],
+  "Africa": [
+    null,
+    null
+  ],
+  "Ahmedabad": [
+    "India",
+    "IN"
+  ],
+  "Albania": [
+    "Albania",
+    "AL"
+  ],
+  "Alberta": [
+    "Canada",
+    "CA"
+  ],
+  "Algeria": [
+    "Algeria",
+    "DZ"
+  ],
+  "Amazon": [
+    "Brazil",
+    "BR"
+  ],
+  "America": [
+    "United States",
+    "US"
+  ],
+  "Anantnag": [
+    "India",
+    "IN"
+  ],
+  "Ankara": [
+    "Türkiye",
+    "TR"
+  ],
+  "Antarctica": [
+    "Antarctica",
+    "AQ"
+  ],
+  "Arak": [
+    "Iran, Islamic Republic of",
+    "IR"
+  ],
+  "Arctic": [
+    null,
+    null
+  ],
+  "Argentina": [
+    "Argentina",
+    "AR"
+  ],
+  "Armenia": [
+    "Armenia",
+    "AM"
+  ],
+  "Arunachal Pradesh": [
+    "India",
+    "IN"
+  ],
+  "As - Suweida": [
+    "Syrian Arab Republic",
+    "SY"
+  ],
+  "Ashdod": [
+    "Israel",
+    "IL"
+  ],
+  "Asia": [
+    null,
+    null
+  ],
+  "Asia Singapore": [
+    "Singapore",
+    "SG"
+  ],
+  "Athens": [
+    "Greece",
+    "GR"
+  ],
+  "Atlantic": [
+    null,
+    null
+  ],
+  "Australia": [
+    "Australia",
+    "AU"
+  ],
+  "Austria": [
+    "Austria",
+    "AT"
+  ],
+  "Azerbaijan": [
+    "Azerbaijan",
+    "AZ"
+  ],
+  "Baghdad": [
+    "Iraq",
+    "IQ"
+  ],
+  "Baglihar Dam": [
+    "India",
+    "IN"
+  ],
+  "Bahawalpur": [
+    "Pakistan",
+    "PK"
+  ],
+  "Bali": [
+    "Indonesia",
+    "ID"
+  ],
+  "Ballymena": [
+    "United Kingdom",
+    "GB"
+  ],
+  "Ballymena Northern Ireland": [
+    "United Kingdom",
+    "GB"
+  ],
+  "Balochistan": [
+    "Pakistan",
+    "PK"
+  ],
+  "Baltic Sea": [
+    null,
+    null
+  ],
+  "Bandar Abbas": [
+    "Iran, Islamic Republic of",
+    "IR"
+  ],
+  "Banff": [
+    "Canada",
+    "CA"
+  ],
+  "Bangkok": [
+    "Thailand",
+    "TH"
+  ],
+  "Bangladesh": [
+    "Bangladesh",
+    "BD"
+  ],
+  "Barcelona": [
+    "Spain",
+    "ES"
+  ],
+  "Bastar": [
+    "India",
+    "IN"
+  ],
+  "Bat Yam": [
+    "Israel",
+    "IL"
+  ],
+  "Bathinda": [
+    "India",
+    "IN"
+  ],
+  "Bay of Bengal": [
+    "India",
+    "IN"
+  ],
+  "BC": [
+    "Canada",
+    "CA"
+  ],
+  "Beer Sheva": [
+    "Israel",
+    "IL"
+  ],
+  "Beijing": [
+    "China",
+    "CN"
+  ],
+  "Beirut": [
+    "Lebanon",
+    "LB"
+  ],
+  "Belarus": [
+    "Belarus",
+    "BY"
+  ],
+  "Belgium": [
+    "Belgium",
+    "BE"
+  ],
+  "Ben - Gurion Airport": [
+    "Israel",
+    "IL"
+  ],
+  "Ben Gurion": [
+    "Israel",
+    "IL"
+  ],
+  "Ben Gurion Airport": [
+    "Israel",
+    "IL"
+  ],
+  "Berlin": [
+    "Germany",
+    "DE"
+  ],
+  "Biafra": [
+    "Kenya",
+    "KE"
+  ],
+  "Black Sea": [
+    null,
+    null
+  ],
+  "Blatten": [
+    "Switzerland",
+    "CH"
+  ],
+  "Bogota": [
+    "Colombia",
+    "CO"
+  ],
+  "Bolivia": [
+    "Bolivia, Plurinational State of",
+    "BO"
+  ],
+  "Botswana": [
+    "Botswana",
+    "BW"
+  ],
+  "Brazil": [
+    "Brazil",
+    "BR"
+  ],
+  "Britain": [
+    "United Kingdom",
+    "GB"
+  ],
+  "Brussels": [
+    "Belgium",
+    "BE"
+  ],
+  "Bryansk Oblast": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Bucharest": [
+    "Romania",
+    "RO"
+  ],
+  "Budapest": [
+    "Hungary",
+    "HU"
+  ],
+  "Buenos Aires": [
+    "Argentina",
+    "AR"
+  ],
+  "Buenos Aires City": [
+    "Argentina",
+    "AR"
+  ],
+  "Buenos Aires Province": [
+    "Argentina",
+    "AR"
+  ],
+  "Bulgaria": [
+    "Bulgaria",
+    "BG"
+  ],
+  "Burkina Faso": [
+    "Burkina Faso",
+    "BF"
+  ],
+  "Burundi": [
+    "Burundi",
+    "BI"
+  ],
+  "Bushehr": [
+    "Iran, Islamic Republic of",
+    "IR"
+  ],
+  "Cairo": [
+    "Egypt",
+    "EG"
+  ],
+  "Calgary": [
+    "Canada",
+    "CA"
+  ],
+  "Cambodia": [
+    "Cambodia",
+    "KH"
+  ],
+  "Canada": [
+    "Canada",
+    "CA"
+  ],
+  "Canada Canada": [
+    "Canada",
+    "CA"
+  ],
+  "Canal Zone": [
+    "Panama",
+    "PA"
+  ],
+  "Canda": [
+    "Italy",
+    "IT"
+  ],
+  "Caribbean": [
+    null,
+    null
+  ],
+  "Cayman Islands": [
+    "Cayman Islands",
+    "KY"
+  ],
+  "Central Asia": [
+    null,
+    null
+  ],
+  "Chagos": [
+    "British Indian Ocean Territory",
+    "IO"
+  ],
+  "Chagos Islands": [
+    "British Indian Ocean Territory",
+    "IO"
+  ],
+  "Chattisgarh": [
+    "India",
+    "IN"
+  ],
+  "Chechen Republic": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Chenab": [
+    "Pakistan",
+    "PK"
+  ],
+  "Chhattisgarh": [
+    "India",
+    "IN"
+  ],
+  "Chile": [
+    "Chile",
+    "CL"
+  ],
+  "China": [
+    "China",
+    "CN"
+  ],
+  "Clyde": [
+    "United Kingdom",
+    "GB"
+  ],
+  "Cologne": [
+    "Germany",
+    "DE"
+  ],
+  "Colombia": [
+    "Colombia",
+    "CO"
+  ],
+  "Congo": [
+    "Congo",
+    "CG"
+  ],
+  "Cook Islands": [
+    "Cook Islands",
+    "CK"
+  ],
+  "Copacabana": [
+    "Brazil",
+    "BR"
+  ],
+  "Costa Rica": [
+    "Costa Rica",
+    "CR"
+  ],
+  "Cotroceni Palace": [
+    null,
+    null
+  ],
+  "Cracov": [
+    "Poland",
+    "PL"
+  ],
+  "Crete": [
+    "Greece",
+    "GR"
+  ],
+  "Crimea": [
+    "Ukraine",
+    "UA"
+  ],
+  "Croatia": [
+    "Croatia",
+    "HR"
+  ],
+  "Cuba": [
+    "Cuba",
+    "CU"
+  ],
+  "Cyprus": [
+    "Cyprus",
+    "CY"
+  ],
+  "Czech Republic": [
+    "Czechia",
+    "CZ"
+  ],
+  "Czechia": [
+    "Czechia",
+    "CZ"
+  ],
+  "Côte d ' Ivoire": [
+    "Côte d'Ivoire",
+    "CI"
+  ],
+  "Dahiyeh": [
+    null,
+    null
+  ],
+  "Damascus": [
+    "Syrian Arab Republic",
+    "SY"
+  ],
+  "DC": [
+    "United Kingdom",
+    "GB"
+  ],
+  "Delhi": [
+    "India",
+    "IN"
+  ],
+  "Denmark": [
+    "Denmark",
+    "DK"
+  ],
+  "Dnipropetrovsk Oblast": [
+    "Ukraine",
+    "UA"
+  ],
+  "Doha": [
+    "Qatar",
+    "QA"
+  ],
+  "Dominican Republic": [
+    "Dominican Republic",
+    "DO"
+  ],
+  "DPRK": [
+    "Korea, Democratic People's Republic of",
+    "KP"
+  ],
+  "DR Congo": [
+    "Congo, The Democratic Republic of the",
+    "CD"
+  ],
+  "Dubai Marina Tower": [
+    "United Arab Emirates",
+    "AE"
+  ],
+  "Dublin": [
+    "Ireland",
+    "IE"
+  ],
+  "Dukovany": [
+    "Czechia",
+    "CZ"
+  ],
+  "Earth": [
+    null,
+    null
+  ],
+  "East": [
+    null,
+    null
+  ],
+  "East Asia": [
+    null,
+    null
+  ],
+  "East China Sea": [
+    null,
+    null
+  ],
+  "East Jerusalem": [
+    "Palestine, State of",
+    "PS"
+  ],
+  "Eastern Europe": [
+    null,
+    null
+  ],
+  "Ecuador": [
+    "Ecuador",
+    "EC"
+  ],
+  "Edinburgh": [
+    "United Kingdom",
+    "GB"
+  ],
+  "Egypt": [
+    "Egypt",
+    "EG"
+  ],
+  "El Salvador": [
+    "El Salvador",
+    "SV"
+  ],
+  "England": [
+    "United Kingdom",
+    "GB"
+  ],
+  "Equatorial Guinea": [
+    "Equatorial Guinea",
+    "GQ"
+  ],
+  "Estonia": [
+    "Estonia",
+    "EE"
+  ],
+  "Ethiopia": [
+    "Ethiopia",
+    "ET"
+  ],
+  "Europe": [
+    null,
+    null
+  ],
+  "Europe Canada": [
+    "Canada",
+    "CA"
+  ],
+  "European Hospital": [
+    "Holy See (Vatican City State)",
+    "VA"
+  ],
+  "Far East": [
+    null,
+    null
+  ],
+  "Far East Russia": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Finland": [
+    "Finland",
+    "FI"
+  ],
+  "Forbidden Zone": [
+    null,
+    null
+  ],
+  "Fordo": [
+    "Iran, Islamic Republic of",
+    "IR"
+  ],
+  "Fordow": [
+    "Iran, Islamic Republic of",
+    "IR"
+  ],
+  "France": [
+    "France",
+    "FR"
+  ],
+  "Fukuoka": [
+    "Japan",
+    "JP"
+  ],
+  "Gabon": [
+    "Gabon",
+    "GA"
+  ],
+  "Gaza": [
+    "Palestine, State of",
+    "PS"
+  ],
+  "Gaza Strip": [
+    "Palestine, State of",
+    "PS"
+  ],
+  "Geneva": [
+    "Switzerland",
+    "CH"
+  ],
+  "Georgia": [
+    "Georgia",
+    "GE"
+  ],
+  "Germany": [
+    "Germany",
+    "DE"
+  ],
+  "Germany US": [
+    "Germany",
+    "DE"
+  ],
+  "Ghana": [
+    "Ghana",
+    "GH"
+  ],
+  "Gibraltar": [
+    "Gibraltar",
+    "GI"
+  ],
+  "Golden Triangle": [
+    null,
+    null
+  ],
+  "Great Yarmouth": [
+    "United Kingdom",
+    "GB"
+  ],
+  "Greater Khartoum": [
+    "Sudan",
+    "SD"
+  ],
+  "Greece": [
+    "Greece",
+    "GR"
+  ],
+  "Greenland": [
+    "Greenland",
+    "GL"
+  ],
+  "Guantanamo": [
+    "Cuba",
+    "CU"
+  ],
+  "Guatemala": [
+    "Guatemala",
+    "GT"
+  ],
+  "Gujarat": [
+    "India",
+    "IN"
+  ],
+  "Gulf": [
+    null,
+    null
+  ],
+  "Gulf of Oman": [
+    null,
+    null
+  ],
+  "Guyana": [
+    "Guyana",
+    "GY"
+  ],
+  "Haarlem": [
+    "Netherlands",
+    "NL"
+  ],
+  "Hague": [
+    "Netherlands",
+    "NL"
+  ],
+  "Haifa": [
+    "Israel",
+    "IL"
+  ],
+  "Haiti": [
+    "Haiti",
+    "HT"
+  ],
+  "Hanoi": [
+    "Viet Nam",
+    "VN"
+  ],
+  "Havana": [
+    "Cuba",
+    "CU"
+  ],
+  "Heathrow Airport": [
+    "United Kingdom",
+    "GB"
+  ],
+  "HK": [
+    "Hong Kong",
+    "HK"
+  ],
+  "Hodeidah": [
+    "Yemen",
+    "YE"
+  ],
+  "Hokkaido": [
+    "Japan",
+    "JP"
+  ],
+  "Holyrood": [
+    "United States",
+    "US"
+  ],
+  "Honduras": [
+    "Honduras",
+    "HN"
+  ],
+  "Hong Kong": [
+    "Hong Kong",
+    "HK"
+  ],
+  "Hormuz Strait": [
+    null,
+    null
+  ],
+  "Hudson Bay": [
+    null,
+    null
+  ],
+  "Hungary": [
+    "Hungary",
+    "HU"
+  ],
+  "Iceland": [
+    "Iceland",
+    "IS"
+  ],
+  "India": [
+    "India",
+    "IN"
+  ],
+  "India Pakistan": [
+    "India",
+    "IN"
+  ],
+  "Indian Kashmir": [
+    "India",
+    "IN"
+  ],
+  "Indian Ocean": [
+    null,
+    null
+  ],
+  "Indonesia": [
+    "Indonesia",
+    "ID"
+  ],
+  "International Border": [
+    null,
+    null
+  ],
+  "Irakleion": [
+    "Greece",
+    "GR"
+  ],
+  "Iran": [
+    "Iran, Islamic Republic of",
+    "IR"
+  ],
+  "Iraq": [
+    "Iraq",
+    "IQ"
+  ],
+  "Ireland": [
+    "Ireland",
+    "IE"
+  ],
+  "Israel": [
+    "Israel",
+    "IL"
+  ],
+  "Israel Gulf": [
+    "Israel",
+    "IL"
+  ],
+  "Israel Iran": [
+    "Israel",
+    "IL"
+  ],
+  "Istanbul": [
+    "Türkiye",
+    "TR"
+  ],
+  "Italy": [
+    "Italy",
+    "IT"
+  ],
+  "Ivory Coast": [
+    "Côte d'Ivoire",
+    "CI"
+  ],
+  "Jabalya": [
+    "Palestine, State of",
+    "PS"
+  ],
+  "Jammu": [
+    "India",
+    "IN"
+  ],
+  "Japan": [
+    "Japan",
+    "JP"
+  ],
+  "Jenin": [
+    "Palestine, State of",
+    "PS"
+  ],
+  "Jerusalem": [
+    "Israel",
+    "IL"
+  ],
+  "Jhelum River": [
+    null,
+    null
+  ],
+  "Jordan": [
+    "Jordan",
+    "JO"
+  ],
+  "Kabul": [
+    "Afghanistan",
+    "AF"
+  ],
+  "Kakhovka Dam": [
+    "Ukraine",
+    "UA"
+  ],
+  "Kananaskis": [
+    "Canada",
+    "CA"
+  ],
+  "Karachi": [
+    "Pakistan",
+    "PK"
+  ],
+  "Karnataka": [
+    "India",
+    "IN"
+  ],
+  "Karregutta": [
+    null,
+    null
+  ],
+  "Kashmir": [
+    "India",
+    "IN"
+  ],
+  "Kazakhstan": [
+    "Kazakhstan",
+    "KZ"
+  ],
+  "Kazan": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Kenya": [
+    "Kenya",
+    "KE"
+  ],
+  "Kerala": [
+    "India",
+    "IN"
+  ],
+  "Khan Yunis": [
+    "Palestine, State of",
+    "PS"
+  ],
+  "Kharkiv": [
+    "Ukraine",
+    "UA"
+  ],
+  "Khartoum": [
+    "Sudan",
+    "SD"
+  ],
+  "Kherson": [
+    "Ukraine",
+    "UA"
+  ],
+  "Khnatsakh": [
+    "Armenia",
+    "AM"
+  ],
+  "Khor Fakkan": [
+    "United Arab Emirates",
+    "AE"
+  ],
+  "Kinshasa": [
+    "Congo, The Democratic Republic of the",
+    "CD"
+  ],
+  "Korea": [
+    "Korea, Republic of",
+    "KR"
+  ],
+  "Kosovo": [
+    "Kosovo",
+    "XK"
+  ],
+  "Kostiantynivka Ukraine": [
+    "Ukraine",
+    "UA"
+  ],
+  "Kotli": [
+    "Pakistan",
+    "PK"
+  ],
+  "KP": [
+    "Korea, Democratic People's Republic of",
+    "KP"
+  ],
+  "Krakow": [
+    "Poland",
+    "PL"
+  ],
+  "Krasnodar Krai": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Kremlin": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Kursk": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Kursk Oblast": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Kursk Oblast Seoul": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Kutch": [
+    "India",
+    "IN"
+  ],
+  "Kuwait": [
+    "Kuwait",
+    "KW"
+  ],
+  "Kyiv": [
+    "Ukraine",
+    "UA"
+  ],
+  "Kyiv Ukraine": [
+    "Ukraine",
+    "UA"
+  ],
+  "Kyrgyzstan": [
+    "Kyrgyzstan",
+    "KG"
+  ],
+  "Labrador": [
+    "Canada",
+    "CA"
+  ],
+  "Lahore": [
+    "Pakistan",
+    "PK"
+  ],
+  "Larnaca": [
+    "Cyprus",
+    "CY"
+  ],
+  "Latin America": [
+    null,
+    null
+  ],
+  "Latvia": [
+    "Latvia",
+    "LV"
+  ],
+  "Lausanne": [
+    "Switzerland",
+    "CH"
+  ],
+  "Lebannon": [
+    "Lebanon",
+    "LB"
+  ],
+  "Lebanon": [
+    "Lebanon",
+    "LB"
+  ],
+  "Leh": [
+    "India",
+    "IN"
+  ],
+  "Lewotobi": [
+    "Indonesia",
+    "ID"
+  ],
+  "Libya": [
+    "Libya",
+    "LY"
+  ],
+  "Libya Russia": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Lithuania": [
+    "Lithuania",
+    "LT"
+  ],
+  "LoC": [
+    "India",
+    "IN"
+  ],
+  "London": [
+    "United Kingdom",
+    "GB"
+  ],
+  "Lutsk": [
+    "Ukraine",
+    "UA"
+  ],
+  "Luxembourg": [
+    "Luxembourg",
+    "LU"
+  ],
+  "Madrid": [
+    "Spain",
+    "ES"
+  ],
+  "Magallanes Region": [
+    "Chile",
+    "CL"
+  ],
+  "Maharashtra": [
+    "India",
+    "IN"
+  ],
+  "Malaysia": [
+    "Malaysia",
+    "MY"
+  ],
+  "Mali": [
+    "Mali",
+    "ML"
+  ],
+  "Malta": [
+    "Malta",
+    "MT"
+  ],
+  "Manipur": [
+    "India",
+    "IN"
+  ],
+  "Manitoba": [
+    "Canada",
+    "CA"
+  ],
+  "Mariupol": [
+    "Ukraine",
+    "UA"
+  ],
+  "Mars": [
+    null,
+    null
+  ],
+  "Mauritius": [
+    "Mauritius",
+    "MU"
+  ],
+  "Mecca": [
+    "Saudi Arabia",
+    "SA"
+  ],
+  "Mediterranean": [
+    null,
+    null
+  ],
+  "Mehrabad": [
+    "Iran, Islamic Republic of",
+    "IR"
+  ],
+  "Melbourne": [
+    "Australia",
+    "AU"
+  ],
+  "Melitopol": [
+    "Ukraine",
+    "UA"
+  ],
+  "Mexico": [
+    "Mexico",
+    "MX"
+  ],
+  "Mexico City": [
+    "Mexico",
+    "MX"
+  ],
+  "Middle": [
+    null,
+    null
+  ],
+  "Middle East": [
+    null,
+    null
+  ],
+  "Mideast": [
+    null,
+    null
+  ],
+  "Misrata": [
+    "Libya",
+    "LY"
+  ],
+  "Mogadishu": [
+    "Somalia",
+    "SO"
+  ],
+  "Mokwa": [
+    "Nigeria",
+    "NG"
+  ],
+  "Moldova": [
+    "Moldova, Republic of",
+    "MD"
+  ],
+  "Mongolia": [
+    "Mongolia",
+    "MN"
+  ],
+  "Montenegro": [
+    "Montenegro",
+    "ME"
+  ],
+  "Montreal": [
+    "Canada",
+    "CA"
+  ],
+  "Moon": [
+    null,
+    null
+  ],
+  "Morocco": [
+    "Morocco",
+    "MA"
+  ],
+  "Moscow": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Mozambique": [
+    "Mozambique",
+    "MZ"
+  ],
+  "Murmansk": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Murshidabad": [
+    "India",
+    "IN"
+  ],
+  "Muzaffarabad": [
+    "Pakistan",
+    "PK"
+  ],
+  "Myanmar": [
+    "Myanmar",
+    "MM"
+  ],
+  "N Korea": [
+    "Korea, Democratic People's Republic of",
+    "KP"
+  ],
+  "Nairobi": [
+    "Kenya",
+    "KE"
+  ],
+  "Namibia": [
+    "Namibia",
+    "NA"
+  ],
+  "Natanz": [
+    "Iran, Islamic Republic of",
+    "IR"
+  ],
+  "Nato": [
+    null,
+    null
+  ],
+  "Nepal": [
+    "Nepal",
+    "NP"
+  ],
+  "Netherlands": [
+    "Netherlands",
+    "NL"
+  ],
+  "New Caledonia": [
+    "New Caledonia",
+    "NC"
+  ],
+  "New Delhi": [
+    "India",
+    "IN"
+  ],
+  "New Zealand": [
+    "New Zealand",
+    "NZ"
+  ],
+  "Nicaragua": [
+    "Nicaragua",
+    "NI"
+  ],
+  "Nice": [
+    "France",
+    "FR"
+  ],
+  "Niger": [
+    "Niger",
+    "NE"
+  ],
+  "Nigeria": [
+    "Nigeria",
+    "NG"
+  ],
+  "Nile": [
+    null,
+    null
+  ],
+  "North": [
+    null,
+    null
+  ],
+  "North America": [
+    null,
+    null
+  ],
+  "North Darfur": [
+    "Sudan",
+    "SD"
+  ],
+  "North Gaza": [
+    "Palestine, State of",
+    "PS"
+  ],
+  "North Korea": [
+    "Korea, Democratic People's Republic of",
+    "KP"
+  ],
+  "North Macedonia": [
+    "North Macedonia",
+    "MK"
+  ],
+  "North Pole": [
+    null,
+    null
+  ],
+  "Northern Ireland": [
+    "United Kingdom",
+    "GB"
+  ],
+  "Northern Mozambique": [
+    "Mozambique",
+    "MZ"
+  ],
+  "Norway": [
+    "Norway",
+    "NO"
+  ],
+  "NZ": [
+    "New Zealand",
+    "NZ"
+  ],
+  "Odesa": [
+    "Ukraine",
+    "UA"
+  ],
+  "Okinawa": [
+    "Japan",
+    "JP"
+  ],
+  "Olenya": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Oman": [
+    "Oman",
+    "OM"
+  ],
+  "Ontario": [
+    "Canada",
+    "CA"
+  ],
+  "Oshawa": [
+    "Canada",
+    "CA"
+  ],
+  "Ottawa": [
+    "Canada",
+    "CA"
+  ],
+  "PA": [
+    "Panama",
+    "PA"
+  ],
+  "Pacific": [
+    null,
+    null
+  ],
+  "Pak": [
+    "Pakistan",
+    "PK"
+  ],
+  "Pakistan": [
+    "Pakistan",
+    "PK"
+  ],
+  "Pakistani Kashmir": [
+    "Pakistan",
+    "PK"
+  ],
+  "Palazzo Trevisan": [
+    "Italy",
+    "IT"
+  ],
+  "Palestine": [
+    "Palestine, State of",
+    "PS"
+  ],
+  "Panama": [
+    "Panama",
+    "PA"
+  ],
+  "Panama Canal": [
+    "Panama",
+    "PA"
+  ],
+  "Paraguay": [
+    "Paraguay",
+    "PY"
+  ],
+  "Paris": [
+    "France",
+    "FR"
+  ],
+  "Passau": [
+    "Germany",
+    "DE"
+  ],
+  "Pearson": [
+    "Canada",
+    "CA"
+  ],
+  "Peleș": [
+    "Romania",
+    "RO"
+  ],
+  "Pelișor": [
+    "Romania",
+    "RO"
+  ],
+  "Peru": [
+    "Peru",
+    "PE"
+  ],
+  "Philippine Sea": [
+    null,
+    null
+  ],
+  "Philippines": [
+    "Philippines",
+    "PH"
+  ],
+  "Phuket": [
+    "Thailand",
+    "TH"
+  ],
+  "PNG": [
+    "Papua New Guinea",
+    "PG"
+  ],
+  "Pokrovsk": [
+    "Ukraine",
+    "UA"
+  ],
+  "Poland": [
+    "Poland",
+    "PL"
+  ],
+  "Poonch": [
+    "Pakistan",
+    "PK"
+  ],
+  "Port Sudan": [
+    "Sudan",
+    "SD"
+  ],
+  "Portugal": [
+    "Portugal",
+    "PT"
+  ],
+  "Prague": [
+    "Czechia",
+    "CZ"
+  ],
+  "Pripyat": [
+    "Ukraine",
+    "UA"
+  ],
+  "Punjab": [
+    "India",
+    "IN"
+  ],
+  "Pyongyang": [
+    "Korea, Democratic People's Republic of",
+    "KP"
+  ],
+  "Qatar": [
+    "Qatar",
+    "QA"
+  ],
+  "Quebec": [
+    "Canada",
+    "CA"
+  ],
+  "Queensland": [
+    "Australia",
+    "AU"
+  ],
+  "Quetta": [
+    "Pakistan",
+    "PK"
+  ],
+  "Rafah": [
+    "Palestine, State of",
+    "PS"
+  ],
+  "Raja Ampat": [
+    "Indonesia",
+    "ID"
+  ],
+  "Ramallah": [
+    "Palestine, State of",
+    "PS"
+  ],
+  "Red Deer": [
+    "Canada",
+    "CA"
+  ],
+  "Red Sea": [
+    null,
+    null
+  ],
+  "Red Square": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Reef": [
+    "United States Minor Outlying Islands",
+    "UM"
+  ],
+  "Rio de Janeiro": [
+    "Brazil",
+    "BR"
+  ],
+  "Riyadh": [
+    "Saudi Arabia",
+    "SA"
+  ],
+  "Romania": [
+    "Romania",
+    "RO"
+  ],
+  "Rome": [
+    "Italy",
+    "IT"
+  ],
+  "Rukban": [
+    "Jordan",
+    "JO"
+  ],
+  "Russia": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Russia China": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Russia Ukraine": [
+    "Ukraine",
+    "UA"
+  ],
+  "Russia Vietnam": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Russian Federation": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Rwanda": [
+    "Rwanda",
+    "RW"
+  ],
+  "S Korea": [
+    "Korea, Republic of",
+    "KR"
+  ],
+  "SA": [
+    "Saudi Arabia",
+    "SA"
+  ],
+  "Saana International Airport": [
+    "Yemen",
+    "YE"
+  ],
+  "Sabha": [
+    "Libya",
+    "LY"
+  ],
+  "Sahel": [
+    null,
+    null
+  ],
+  "Saigon": [
+    "Viet Nam",
+    "VN"
+  ],
+  "Sanaa": [
+    "Yemen",
+    "YE"
+  ],
+  "Sanaa International Airport": [
+    "Yemen",
+    "YE"
+  ],
+  "Sandy Cay": [
+    "Virgin Islands, British",
+    "VG"
+  ],
+  "Sao Paulo": [
+    "Brazil",
+    "BR"
+  ],
+  "Saskatchewan": [
+    "Canada",
+    "CA"
+  ],
+  "Saudi Arabia": [
+    "Saudi Arabia",
+    "SA"
+  ],
+  "Scotland": [
+    "United Kingdom",
+    "GB"
+  ],
+  "SE Asia": [
+    null,
+    null
+  ],
+  "Seoul": [
+    "Korea, Republic of",
+    "KR"
+  ],
+  "Serbia": [
+    "Serbia",
+    "RS"
+  ],
+  "Sevastopol": [
+    "Ukraine",
+    "UA"
+  ],
+  "Severomorsk": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Shahed": [
+    "Iran, Islamic Republic of",
+    "IR"
+  ],
+  "Shahid Rajee": [
+    "Iran, Islamic Republic of",
+    "IR"
+  ],
+  "Shanghai": [
+    "China",
+    "CN"
+  ],
+  "Shiraz": [
+    "Iran, Islamic Republic of",
+    "IR"
+  ],
+  "Shorkot Air": [
+    null,
+    null
+  ],
+  "Siberia": [
+    "Italy",
+    "IT"
+  ],
+  "Sinai": [
+    "Israel",
+    "IL"
+  ],
+  "Sindh": [
+    "Pakistan",
+    "PK"
+  ],
+  "Singapore": [
+    "Singapore",
+    "SG"
+  ],
+  "Slovakia": [
+    "Slovakia",
+    "SK"
+  ],
+  "Solomon Islands": [
+    "Solomon Islands",
+    "SB"
+  ],
+  "Somalia": [
+    "Somalia",
+    "SO"
+  ],
+  "South": [
+    null,
+    null
+  ],
+  "South Africa": [
+    "South Africa",
+    "ZA"
+  ],
+  "South Africa South Africa": [
+    "South Africa",
+    "ZA"
+  ],
+  "South Asia": [
+    null,
+    null
+  ],
+  "South China Sea": [
+    null,
+    null
+  ],
+  "South Korea": [
+    "Korea, Republic of",
+    "KR"
+  ],
+  "South Sudan": [
+    "South Sudan",
+    "SS"
+  ],
+  "South Sudan Hospital": [
+    "South Sudan",
+    "SS"
+  ],
+  "Southeast Asia": [
+    null,
+    null
+  ],
+  "Spain": [
+    "Spain",
+    "ES"
+  ],
+  "Sports Stadium": [
+    null,
+    null
+  ],
+  "Spratly Islands": [
+    null,
+    null
+  ],
+  "Srinagar": [
+    "India",
+    "IN"
+  ],
+  "St Peter ' s Basilica": [
+    "Holy See (Vatican City State)",
+    "VA"
+  ],
+  "St Petersburg": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Stalingrad": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Stockholm": [
+    "Sweden",
+    "SE"
+  ],
+  "Strait of Hormuz": [
+    null,
+    null
+  ],
+  "Stuttgart": [
+    "Germany",
+    "DE"
+  ],
+  "Sudan": [
+    "Sudan",
+    "SD"
+  ],
+  "Suez": [
+    "Egypt",
+    "EG"
+  ],
+  "Sumy": [
+    "Ukraine",
+    "UA"
+  ],
+  "Sumy Oblast": [
+    "Ukraine",
+    "UA"
+  ],
+  "Surab": [
+    "Pakistan",
+    "PK"
+  ],
+  "Suriname": [
+    "Suriname",
+    "SR"
+  ],
+  "Sweden": [
+    "Sweden",
+    "SE"
+  ],
+  "Switzerland": [
+    "Switzerland",
+    "CH"
+  ],
+  "Sydney": [
+    "Australia",
+    "AU"
+  ],
+  "Syria": [
+    "Syrian Arab Republic",
+    "SY"
+  ],
+  "Taipei": [
+    "Taiwan, Province of China",
+    "TW"
+  ],
+  "Taiwan": [
+    "Taiwan, Province of China",
+    "TW"
+  ],
+  "Taiwan Strait": [
+    null,
+    null
+  ],
+  "Tambov Oblast": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Tamil Nadu": [
+    "India",
+    "IN"
+  ],
+  "Tangdhar": [
+    "India",
+    "IN"
+  ],
+  "Tanzania": [
+    "Tanzania, United Republic of",
+    "TZ"
+  ],
+  "Tatarstan": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Tehran": [
+    "Iran, Islamic Republic of",
+    "IR"
+  ],
+  "Tehran Israel": [
+    "Israel",
+    "IL"
+  ],
+  "Tel Aviv": [
+    "Israel",
+    "IL"
+  ],
+  "Ternopil": [
+    "Ukraine",
+    "UA"
+  ],
+  "Terrebonne": [
+    "United States",
+    "US"
+  ],
+  "Thailand": [
+    "Thailand",
+    "TH"
+  ],
+  "The Hague": [
+    "Netherlands",
+    "NL"
+  ],
+  "Tiananmen Square": [
+    "China",
+    "CN"
+  ],
+  "Tibet": [
+    "China",
+    "CN"
+  ],
+  "Timbuktu": [
+    "Mali",
+    "ML"
+  ],
+  "Tobago": [
+    "Trinidad and Tobago",
+    "TT"
+  ],
+  "Tokyo": [
+    "Japan",
+    "JP"
+  ],
+  "Toronto": [
+    "Canada",
+    "CA"
+  ],
+  "Transnistria": [
+    "Moldova, Republic of",
+    "MD"
+  ],
+  "Trinidad": [
+    "Trinidad and Tobago",
+    "TT"
+  ],
+  "Tripoli": [
+    "Libya",
+    "LY"
+  ],
+  "Turkey": [
+    "Türkiye",
+    "TR"
+  ],
+  "Turkiye": [
+    "Türkiye",
+    "TR"
+  ],
+  "Turkmenistan": [
+    "Turkmenistan",
+    "TM"
+  ],
+  "UAE": [
+    "United Arab Emirates",
+    "AE"
+  ],
+  "Uganda": [
+    "Uganda",
+    "UG"
+  ],
+  "UK": [
+    "United Kingdom",
+    "GB"
+  ],
+  "Ukraine": [
+    "Ukraine",
+    "UA"
+  ],
+  "Ukraine Russia": [
+    "Ukraine",
+    "UA"
+  ],
+  "United Arab Emirates": [
+    "United Arab Emirates",
+    "AE"
+  ],
+  "United Kingdom": [
+    "United Kingdom",
+    "GB"
+  ],
+  "United States": [
+    "United States",
+    "US"
+  ],
+  "Uppsala": [
+    "Sweden",
+    "SE"
+  ],
+  "Uruguay": [
+    "Uruguay",
+    "UY"
+  ],
+  "US": [
+    "United States",
+    "US"
+  ],
+  "US Gaza": [
+    "United States",
+    "US"
+  ],
+  "US Kadena Air Base": [
+    "Japan",
+    "JP"
+  ],
+  "US Middle East": [
+    "United States",
+    "US"
+  ],
+  "USA": [
+    "United States",
+    "US"
+  ],
+  "UT": [
+    "United States",
+    "US"
+  ],
+  "Uzbekistan": [
+    "Uzbekistan",
+    "UZ"
+  ],
+  "Vancouver": [
+    "Canada",
+    "CA"
+  ],
+  "Vanuatu": [
+    "Vanuatu",
+    "VU"
+  ],
+  "Vatican": [
+    "Holy See (Vatican City State)",
+    "VA"
+  ],
+  "Venezuela": [
+    "Venezuela, Bolivarian Republic of",
+    "VE"
+  ],
+  "Venice": [
+    "Italy",
+    "IT"
+  ],
+  "Venus": [
+    null,
+    null
+  ],
+  "Victoria": [
+    "Australia",
+    "AU"
+  ],
+  "Vietnam": [
+    "Viet Nam",
+    "VN"
+  ],
+  "Vladimir Region": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Vladivostok": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Wales": [
+    "United Kingdom",
+    "GB"
+  ],
+  "Warsaw": [
+    "Poland",
+    "PL"
+  ],
+  "Washington": [
+    "United States",
+    "US"
+  ],
+  "Washington Damascus": [
+    "United States",
+    "US"
+  ],
+  "West": [
+    null,
+    null
+  ],
+  "West Bank": [
+    "Palestine, State of",
+    "PS"
+  ],
+  "West Bengal": [
+    "India",
+    "IN"
+  ],
+  "West Papua": [
+    "Indonesia",
+    "ID"
+  ],
+  "West PH Sea": [
+    "Philippines",
+    "PH"
+  ],
+  "Western Australia": [
+    "Australia",
+    "AU"
+  ],
+  "Western Sahara": [
+    "Western Sahara",
+    "EH"
+  ],
+  "White House": [
+    "United States",
+    "US"
+  ],
+  "Winnipeg": [
+    "Canada",
+    "CA"
+  ],
+  "Yelabuga": [
+    "Russian Federation",
+    "RU"
+  ],
+  "Yellow Sea": [
+    null,
+    null
+  ],
+  "Yemen": [
+    "Yemen",
+    "YE"
+  ],
+  "Zambia": [
+    "Zambia",
+    "ZM"
+  ],
+  "Zaporizhzhia": [
+    "Ukraine",
+    "UA"
+  ],
+  "Zhytomyr": [
+    "Ukraine",
+    "UA"
+  ],
+  "Zimbabwe": [
+    "Zimbabwe",
+    "ZW"
+  ]
+}
