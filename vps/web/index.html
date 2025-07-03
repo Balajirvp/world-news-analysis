@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reddit WorldNews Analytics Dashboard</title>
+    <title>Reddit WorldNews Analytics - Real-Time Global News Insights</title>
     <style>
+        :root {
+            --accent: #228b5a; /* lighter green */
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,188 +17,573 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f5f7fa;
-            color: #2d3748;
+            background: #111827; /* unified dark background */
+            color: var(--accent);
+            line-height: 1.6;
+            overflow: hidden;
         }
-        
+
+        /* Navigation Header */
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-        
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .dashboard-meta {
-            background: white;
-            margin: 2rem auto;
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: #111827; /* unified dark background */
+            border-bottom: 1px solid #b6c2b7;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
         }
-        
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .nav-link:hover {
+            color: #fff;
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
         .last-updated {
+            color: var(--accent);
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            color: #4a5568;
         }
-        
+
         .status-dot {
-            width: 8px;
-            height: 8px;
-            background: #48bb78;
+            width: 6px;
+            height: 6px;
+            background: #ef4444;
             border-radius: 50%;
             animation: pulse 2s infinite;
         }
-        
+
         @keyframes pulse {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            50% { opacity: 0.6; }
         }
-        
-        .feedback-link {
-            background: #4299e1;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            text-decoration: none;
-            transition: background 0.3s;
-        }
-        
-        .feedback-link:hover {
-            background: #3182ce;
-        }
-        
+
+        /* Dashboard Container */
         .dashboard-container {
-            margin: 2rem auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            overflow: hidden;
+            height: calc(100vh - 77px);
+            background: #111827; /* unified dark background */
+            position: relative;
         }
-        
+
         .dashboard-frame {
             width: 100%;
-            height: 800px;
+            height: 100%;
             border: none;
+            background: #ffffff;
         }
-        
-        .footer {
-            text-align: center;
-            padding: 2rem 0;
-            color: #718096;
-            background: white;
-            margin-top: 2rem;
+
+        /* About Page Styles */
+        .about-page {
+            display: none;
+            height: calc(100vh - 77px);
+            overflow-y: auto;
+            background: #111827; /* unified dark background */
         }
-        
+
+        .about-page.active {
+            display: block;
+        }
+
+        .about-content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #ffffff;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            background: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            border-bottom: 1px solid #374151;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-content {
+            color: #d1d5db;
+            line-height: 1.7;
+        }
+
+        .section-content p {
+            margin-bottom: 1rem;
+        }
+
+        .section-content ul, .section-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tech Stack */
+        .tech-tag {
+            background: #e6f4ea;
+            color: var(--accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Dashboard Guide */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .guide-item {
+            background: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .guide-item h4 {
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .guide-item p {
+            color: #d1d5db;
+            font-size: 0.9rem;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            background: transparent;
+            transition: all 0.2s;
+            margin-bottom: 2rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+        }
+
+        .back-button:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        /* Contact Symbols */
+        .contact-symbols {
+            display: flex;
+            gap: 1.1rem;
+            align-items: center;
+            margin-left: 1.5rem;
+        }
+
+        .symbol-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.35rem;
+            border-radius: 50%;
+            background: transparent;
+            transition: background 0.18s, box-shadow 0.18s;
+            box-shadow: none;
+            border: none;
+            outline: none;
+        }
+
+        .symbol-link svg {
+            display: block;
+            width: 22px;
+            height: 22px;
+            transition: filter 0.18s;
+        }
+
+        .symbol-link:hover,
+        .symbol-link:focus {
+            background: #e6f4ea;
+            box-shadow: 0 2px 8px 0 rgba(20,83,45,0.08);
+        }
+
+        .symbol-link:hover svg,
+        .symbol-link:focus svg {
+            filter: brightness(0.7) saturate(1.5);
+        }
+
         @media (max-width: 768px) {
-            .header h1 { font-size: 2rem; }
-            .dashboard-meta { flex-direction: column; text-align: center; }
-            .dashboard-frame { height: 600px; }
+            .header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .last-updated {
+                font-size: 0.8rem;
+            }
+
+            .dashboard-container {
+                height: calc(100vh - 120px);
+            }
+
+            .about-page {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .guide-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-stack {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .contact-symbols {
+                gap: 0.6rem;
+                margin-left: 0.5rem;
+            }
+            .symbol-link svg {
+                width: 19px;
+                height: 19px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation Header -->
     <header class="header">
-        <div class="container">
-            <h1>Reddit WorldNews Analytics</h1>
-            <p>Real-time insights and trends from r/worldnews discussions, updated daily with sentiment analysis, entity recognition, and engagement metrics</p>
+        <a href="#" class="logo" onclick="showDashboard()">Reddit World News</a>
+        
+        <nav class="nav-links">
+            <a href="#" class="nav-link" onclick="showGuide()">Dashboard Guide</a>
+            <a href="#" class="nav-link" onclick="showMethodology()">About</a>
+            <div style="width: 200px;"></div>
+            <div class="contact-symbols">
+                <a href="mailto:balajirvp6@gmail.com" class="symbol-link" title="Email" aria-label="Email">
+                    <svg fill="none" stroke="#14532d" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <rect x="3" y="5" width="18" height="14" rx="2"/>
+                        <polyline points="3 7 12 13 21 7"/>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/balaji-p-65845298/" class="symbol-link" target="_blank" title="LinkedIn" aria-label="LinkedIn">
+                    <svg fill="#14532d" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.604c0-1.337-.026-3.063-1.868-3.063-1.868 0-2.154 1.459-2.154 2.967v5.7h-3v-10h2.881v1.367h.041c.401-.761 1.379-1.563 2.841-1.563 3.039 0 3.6 2.001 3.6 4.601v5.595z"/>
+                    </svg>
+                </a>
+                <a href="https://github.com/balajirvp" class="symbol-link" target="_blank" title="GitHub" aria-label="GitHub">
+                    <svg fill="#14532d" viewBox="0 0 24 24">
+                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.084-.729.084-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.834 2.809 1.304 3.495.997.108-.775.418-1.305.762-1.605-2.665-.305-5.466-1.334-5.466-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.553 3.297-1.23 3.297-1.23.653 1.653.242 2.873.119 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.803 5.624-5.475 5.921.43.371.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                    </svg>
+                </a>
+            </div>
+        </nav>
+
+        <div class="last-updated">
+            <span class="status-dot"></span>
+            <span>Last Updated: <span id="lastRefresh">Loading...</span></span>
         </div>
     </header>
-    
-    <div class="container">
-        <div class="dashboard-meta">
-            <div class="last-updated">
-                <span class="status-dot"></span>
-                <span>Last updated: <strong id="lastRefresh">Loading...</strong></span>
-            </div>
-            <a href="mailto:your-email@gmail.com?subject=Reddit Analytics Feedback" class="feedback-link">
-                📧 Send Feedback
+
+    <!-- Dashboard Container -->
+    <main class="dashboard-container" id="dashboardContainer">
+        <iframe 
+            id="dashboardFrame"
+            class="dashboard-frame"
+            src="/app/dashboards#/view/55dc2070-4646-11f0-9fee-331afea5ea4e?embed=true&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-30d,to:now))&_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!t,viewMode:view)&show-time-filter=true"
+            title="Reddit World News Dashboard"
+            sandbox="allow-scripts allow-same-origin">
+        </iframe>
+    </main>
+
+    <!-- Dashboard Guide Page -->
+    <div class="about-page" id="guidePage">
+        <div class="about-content">
+            <a href="#" class="back-button" onclick="showDashboard()">
+                ← Back to Dashboard
             </a>
-        </div>
-        
-        <div class="dashboard-container">
-	    <iframe 
-	        id="dashboardFrame"
-	        class="dashboard-frame"
-	        src="/app/dashboards#/view/55dc2070-4646-11f0-9fee-331afea5ea4e?embed=true&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-30d,to:now))&_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!t,viewMode:view)&show-time-filter=true"
-	        title="Reddit WorldNews Analytics Dashboard"
-	        sandbox="allow-scripts allow-same-origin">
-	    </iframe>
+
+            <h1 class="page-title">Dashboard Guide</h1>
+
+            <section class="section">
+                <h2 class="section-title">Understanding the Visualizations</h2>
+                <div class="section-content">
+                    <p>
+                        This guide explains how to interpret each visualization and metric in the Reddit WorldNews Analytics dashboard.
+                    </p>
+
+                    <div class="guide-grid">
+                        <div class="guide-item">
+                            <h4>📊 Number of Posts</h4>
+                            <p>Total posts analyzed for the selected time period. Higher numbers indicate more news activity or significant global events.</p>
+                        </div>
+                        
+                        <div class="guide-item">
+                            <h4>👑 Trending Person</h4>
+                            <p>Political figures and public personalities most mentioned in discussions. Shows who is dominating global news conversations.</p>
+                        </div>
+
+                        <div class="guide-item">
+                            <h4>🌍 Trending Country</h4>
+                            <p>Countries most frequently mentioned in news discussions. Indicates which nations are at the center of global attention.</p>
+                        </div>
+
+                        <div class="guide-item">
+                            <h4>🗺️ Trending Region</h4>
+                            <p>Geographic regions with highest discussion volume. Reveals global hotspots and areas of international focus.</p>
+                        </div>
+
+                        <div class="guide-item">
+                            <h4>📰 Trending Source</h4>
+                            <p>News sources most frequently shared and discussed. Shows which media outlets drive Reddit news conversations.</p>
+                        </div>
+
+                        <div class="guide-item">
+                            <h4>🌡️ Sentiment Heatmap</h4>
+                            <p>Geographic visualization of sentiment by country. Green indicates positive sentiment, red shows negative sentiment about specific regions.</p>
+                        </div>
+
+                        <div class="guide-item">
+                            <h4>📈 Trending Figures</h4>
+                            <p>Percentage breakdown of most discussed political and public figures. Size indicates relative discussion volume.</p>
+                        </div>
+
+                        <div class="guide-item">
+                            <h4>⏰ Time Filters</h4>
+                            <p>Use the time picker to explore data from different periods. Default shows last 30 days, but you can focus on specific events or timeframes.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
-    
-    <footer class="footer">
-        <div class="container">
-            <p>Data collected from Reddit r/worldnews • Analysis includes NLP sentiment, entity recognition & engagement metrics</p>
-            <p style="margin-top: 0.5rem; font-size: 0.9rem;">
-                Built with Elasticsearch, Kibana & Python • Hosted on Oracle Cloud • SSL secured
-            </p>
+
+    <!-- Methodology Page -->
+    <div class="about-page" id="methodologyPage">
+        <div class="about-content">
+            <a href="#" class="back-button" onclick="showDashboard()">
+                ← Back to Dashboard
+            </a>
+
+            <h1 class="page-title">About</h1>
+
+            <section class="section">
+                <h2 class="section-title">What are we looking at?</h2>
+                <div class="section-content">
+                    <p>
+                        This site automatically gathers and processes news discussions from the r/worldnews subreddit. Every day at <b>6 pm UTC</b>, the pipeline runs end-to-end: collecting new data, analyzing it, and updating the dashboard with the latest insights. 
+                    </p>
+                    <ol style="list-style: decimal; padding-left: 1.5rem;">
+                        <li style="margin-bottom: 1.5rem;">
+                            <strong>Automated Data Collection</strong><br>
+                            Daily, the system collects top posts and comments from <b>r/worldnews</b> using the Reddit API via <b>PRAW</b> (Python Reddit API Wrapper), orchestrated by <b>Airflow</b> and containerized with <b>Docker</b>.
+                            <div class="step-tech" style="margin-top:0.5rem;">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">PRAW</span>
+                                <span class="tech-tag">Reddit API</span>
+                                <span class="tech-tag">Airflow</span>
+                                <span class="tech-tag">Docker</span>
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 1.5rem;">
+                            <strong>NLP Enrichment</strong><br>
+                            Each post and comment is processed using transformer-based models (<b>BERT</b>, <b>DistilBERT</b>) for <b>named entity recognition</b> and <b>sentiment analysis</b>. This extracts people, places, and sentiment from the text.
+                            <div class="step-tech" style="margin-top:0.5rem;">
+                                <span class="tech-tag">Transformers</span>
+                                <span class="tech-tag">BERT</span>
+                                <span class="tech-tag">DistilBERT</span>
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 1.5rem;">
+                            <strong>Person Name Resolution</strong><br>
+                            Person mentions are mapped to canonical Wikipedia entries using the <b>Wikipedia API</b>, with fuzzy matching and persistent caching for accuracy and efficiency.
+                            <div class="step-tech" style="margin-top:0.5rem;">
+                                <span class="tech-tag">Wikipedia API</span>
+                                <span class="tech-tag">Fuzzy Matching</span>
+                                <span class="tech-tag">Caching</span>
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 1.5rem;">
+                            <strong>Location Mapping</strong><br>
+                            Locations are geocoded and mapped to countries and regions using <b>Geopy</b>, <b>Nominatim</b>, and <b>pycountry</b>, with caching for performance.
+                            <div class="step-tech" style="margin-top:0.5rem;">
+                                <span class="tech-tag">Geopy</span>
+                                <span class="tech-tag">Nominatim</span>
+                                <span class="tech-tag">pycountry</span>
+                                <span class="tech-tag">Caching</span>
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 1.5rem;">
+                            <strong>Metrics & Feature Engineering</strong><br>
+                            The pipeline computes discussion metrics (comment counts, unique commenters, sentiment averages, thread depth) using custom Python utilities.
+                            <div class="step-tech" style="margin-top:0.5rem;">
+                                <span class="tech-tag">Python</span>
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 1.5rem;">
+                            <strong>Indexing & Search</strong><br>
+                            All processed data is indexed in <b>Elasticsearch</b> with custom mappings and runtime fields for fast search and aggregation.
+                            <div class="step-tech" style="margin-top:0.5rem;">
+                                <span class="tech-tag">Elasticsearch</span>
+                                <span class="tech-tag">Docker</span>
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 1.5rem;">
+                            <strong>Visualization & Deployment</strong><br>
+                            Results are visualized in <b>Kibana</b> dashboards, deployed securely with <b>Nginx</b>, <b>SSL</b>, and <b>Oracle Cloud</b>. Automation and monitoring are handled by <b>Airflow</b>.
+                            <div class="step-tech" style="margin-top:0.5rem;">
+                                <span class="tech-tag">Kibana</span>
+                                <span class="tech-tag">Nginx</span>
+                                <span class="tech-tag">SSL</span>
+                                <span class="tech-tag">Oracle Cloud</span>
+                                <span class="tech-tag">Airflow</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Tech Stack</h2>
+                <div class="section-content">
+                    <ul>
+                        <li><b>Python</b> (core pipeline, data processing, orchestration)</li>
+                        <li><b>PRAW</b> (Reddit API access)</li>
+                        <li><b>Transformers</b> (BERT, DistilBERT for NLP)</li>
+                        <li><b>Wikipedia API</b> (person entity resolution)</li>
+                        <li><b>Geopy, Nominatim, pycountry</b> (location mapping)</li>
+                        <li><b>Elasticsearch</b> (search, analytics, custom runtime fields)</li>
+                        <li><b>Kibana</b> (visualization)</li>
+                        <li><b>Docker</b> (containerization)</li>
+                        <li><b>Airflow</b> (automation & scheduling)</li>
+                        <li><b>Nginx, SSL</b> (secure web deployment)</li>
+                        <li><b>Oracle Cloud</b> (cloud hosting)</li>
+                    </ul>
+                </div>
+            </section>
         </div>
-    </footer>
-    
+    </div>
+
     <script>
         // Update last refresh timestamp
         function updateLastRefresh() {
             const now = new Date();
             const today6PM = new Date();
-            today6PM.setUTCHours(18, 0, 0, 0); // Today 6 PM UTC
+            today6PM.setUTCHours(18, 0, 0, 0);
             
-            // If current time is before today's 6 PM UTC, show yesterday
-            // If current time is after today's 6 PM UTC, show today
             const lastUpdate = now < today6PM ? 
-                new Date(today6PM.getTime() - 24 * 60 * 60 * 1000) : // Yesterday
-                today6PM; // Today
+                new Date(today6PM.getTime() - 24 * 60 * 60 * 1000) : 
+                today6PM;
             
             const options = { 
-                year: 'numeric', 
                 month: 'short', 
                 day: 'numeric', 
                 hour: '2-digit', 
-                minute: '2-digit',
-                timeZoneName: 'short'
+                minute: '2-digit'
             };
             
             document.getElementById('lastRefresh').textContent = 
-                `${lastUpdate.toLocaleDateString('en-US', options)} (Daily at 6 PM UTC)`;
+                lastUpdate.toLocaleDateString('en-US', options);
         }
-        
-        // Update on page load
-        updateLastRefresh();
-        
-        // Update every minute
-        setInterval(updateLastRefresh, 60000);
-        
+
+        // Navigation functions
+        function showDashboard() {
+            document.getElementById('dashboardContainer').style.display = 'block';
+            document.getElementById('guidePage').classList.remove('active');
+            document.getElementById('methodologyPage').classList.remove('active');
+        }
+
+        function showGuide() {
+            document.getElementById('dashboardContainer').style.display = 'none';
+            document.getElementById('guidePage').classList.add('active');
+            document.getElementById('methodologyPage').classList.remove('active');
+        }
+
+        function showMethodology() {
+            document.getElementById('dashboardContainer').style.display = 'none';
+            document.getElementById('guidePage').classList.remove('active');
+            document.getElementById('methodologyPage').classList.add('active');
+        }
+
         // Handle iframe load errors
         document.getElementById('dashboardFrame').addEventListener('error', function() {
-            this.style.background = '#f8d7da';
-            this.innerHTML = '<div style="padding: 2rem; text-align: center; color: #721c24;">Dashboard temporarily unavailable. Please refresh the page.</div>';
+            this.style.background = '#1a1a1a';
+            this.innerHTML = '<div style="padding: 2rem; text-align: center; color: #a0a0a0;">Dashboard temporarily unavailable. Please refresh the page.</div>';
         });
+
+        // Initialize
+        updateLastRefresh();
     </script>
 </body>
 </html>
